@@ -17,7 +17,7 @@ const Header=() => {
             <div className='flex gap-3 items-center'>
                 <div className='flex gap-2 items-center'>
                     <div> Name</div>
-                    <Avatar src='avatar.jpeg' alt='it;s me'  />
+                    <Avatar src='my.jpeg' alt='it;s me'  />
                 </div>
                 <div className='bf-mine-shaft-900 p-1.5 rounded-full'>
                     <IconSettings stroke={1.5}/>
