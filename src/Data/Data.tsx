@@ -15,4 +15,66 @@ const work = [
     }   
 ];
 
-export { companies, work }; // Export the arrays
+const jobcategory = [
+    {
+        name: "Arts & Design",
+        image: "/Category/Arts & Design.png",
+        description: "Create visually stunning designs and artistic content for various media platforms",
+        jobCount: "750+ New job posted"
+    },
+    {
+        name: "Content Writing",
+        image: "/Category/Content Writing.png",
+        description: "Craft compelling content that engages audiences and drives brand storytelling",
+        jobCount: "1.2k+ New job posted"
+    },
+    {
+        name: "Customer Support",
+        image: "/Category/Customer Support.png",
+        description: "Provide exceptional customer service and support to enhance user experience",
+        jobCount: "950+ New job posted"
+    },
+    {
+        name: "Data Entry",
+        image: "/Category/Data Entry.png",
+        description: "Manage and organize data with accuracy and attention to detail",
+        jobCount: "600+ New job posted"
+    },
+    {
+        name: "Digital Marketing",
+        image: "/Category/Digital Marketing.png",
+        description: "Create engaging campaigns and drive brand awareness through digital channels",
+        jobCount: "1k+ New job posted"
+    },
+    {
+        name: "Finance",
+        image: "/Category/Finance.png",
+        description: "Handle financial planning, analysis, and strategic business decisions",
+        jobCount: "850+ New job posted"
+    },
+    {
+        name: "Human Resource",
+        image: "/Category/Human Resource.png",
+        description: "Manage talent acquisition, employee relations, and organizational development",
+        jobCount: "700+ New job posted"
+    },
+    {
+        name: "Sales",
+        image: "/Category/Sales.png",
+        description: "Drive revenue growth through strategic sales initiatives and client relationships",
+        jobCount: "1.3k+ New job posted"
+    },
+    {
+        name: "UI-UX Designer",
+        image: "/Category/UI-UX Designer.png",
+        description: "Design beautiful and intuitive user experiences for digital products",
+        jobCount: "650+ New job posted"
+    },
+    {
+        name: "Software Engineer",
+        image: "/Category/Web Developer.png",
+        description: "Build innovative web applications and solutions for modern businesses",
+        jobCount: "1.8k+ New job posted"
+    }
+];
+export { companies, work,jobcategory }; // Export the arrays

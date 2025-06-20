@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
-    "@mantine/core": "^8.0.2",
+    "@mantine/carousel": "^8.1.1",
+    "@mantine/core": "^8.1.1",
     "@mantine/hooks": "^8.0.2",
     "@tabler/icons-react": "^3.33.0",
     "@testing-library/dom": "^10.4.0",
@@ -15,6 +16,8 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-fast-marquee": "^1.6.5",
