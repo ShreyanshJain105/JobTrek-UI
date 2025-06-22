@@ -11,16 +11,16 @@ const JobCategory = () => {
             <div className="text-lg mb-10 mx-auto text-mine-shaft-300 text-center w-1/2">
                 Explore diverse job opportunities tailored to your skills. Start your career journey today
             </div>
-            <Carousel 
-                className="focus-visible:[&_button]:!outline-none"
+           <Carousel 
+                className="focus-visible:[&_button]:!outline-none
+                [&_button]:!bg-bright-sun-400 [&_button]:!border-none [&_button]:hover:opacity-75 [&_button]:opacity-0 hover:[&_button]:opacity-100"
                 slideSize="22%" 
                 slideGap="md" 
                 emblaOptions={{
                 loop: true,
-              }}
+                }}
                 nextControlIcon={<IconArrowRight className="h-8 w-8"  />}
                 previousControlIcon={<IconArrowLeft className="h-8 w-8" />}
-                
             >
                 {jobcategory.map((category, index) => (
                     <Carousel.Slide >
