@@ -12,9 +12,9 @@ const Working = () => {
             </div>
           
             <div className="flex px-16 justify-between items-center">
-                <div>
+                <div className="relative">
                     <img className="w-[30rem]" src="/Working/Girl.png" alt="Girl" />
-                    <div className="w-36 flex flex-col items-center gap-1 border border-bright-sun-400 rounded-xl">
+                    <div className="w-36 flex flex-col items-center gap-1 border border-bright-sun-400 rounded-xl py-3 xp-1 backdrop-blur-md top-[15%] absolute right-0">
                         <Avatar className="!h-12 !w-12" src="avatar1.png" alt="it's me "/>
                         <div className="text-sm font-semibold text-mine-shaft-200 text-center" >Complete your Profile</div>
                         <div className="text-xs font-semibold text-mine-shaft-300 text-center" >70% completed</div>
