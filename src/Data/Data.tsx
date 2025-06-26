@@ -77,4 +77,69 @@ const jobcategory = [
         jobCount: "1.8k+ New job posted"
     }
 ];
-export { companies, work,jobcategory }; // Export the arrays
+const testimonials = [
+  
+  {
+    "name": "Abhishek Kullu",
+    "testimonial": "Found my dream job within a week! The application process was smooth and hassle-free.",
+    "rating": 5
+  },
+  {
+    "name": "Priya Sharma",
+    "testimonial": "Excellent platform with great job opportunities. The interface is user-friendly and efficient.",
+    "rating": 4
+  },
+  {
+    "name": "Rohit Kumar",
+    "testimonial": "Amazing experience! Got multiple interview calls within days of uploading my resume.",
+    "rating": 5
+  },
+  {
+    "name": "Sneha Gupta",
+    "testimonial": "Best job portal I've used so far. The search filters are very helpful in finding relevant jobs.",
+    "rating": 4
+  }
+];
+const footerLinks = [
+  {
+    title: "Product",
+    links: [
+      "Find Jobs",
+      "Find Companies",
+      "Find Employees",
+      "Post a Job",
+      "Career Resources"
+    ]
+  },
+  {
+    title: "Company",
+    links: [
+      "About Us",
+      "Contact Us",
+      "Privacy Policy",
+      "Terms & Conditions",
+      "Careers"
+    ]
+  },
+  {
+    title: "Support",
+    links: [
+      "Help & Support",
+      "Feedback",
+      "FAQs",
+      "Contact Support",
+      "Community Guidelines"
+    ]
+  },
+  {
+    title: "Resources",
+    links: [
+      "Blog",
+      "Career Advice",
+      "Salary Guide",
+      "Resume Builder",
+      "Interview Tips"
+    ]
+  }
+];
+export { companies, work,jobcategory,testimonials ,footerLinks}; // Export the arrays
