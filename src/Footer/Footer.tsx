@@ -3,7 +3,7 @@ import { footerLinks } from "../Data/Data";
 
 const Footer = () => {
     return (
-        <div className="mt-20 pb-5">
+        <div className="pt-20 pb-5 bg-mine-shaft-950 font-['poppins']">
             <div className="flex flex-wrap gap-8 lg:gap-12">
                 {/* Brand Section */}
                 <div className="w-full lg:w-1/4 flex flex-col gap-4">
