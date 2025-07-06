@@ -93,7 +93,7 @@ const talentData = [
     about: "Frontend Developer at Google with 5 years of experience creating responsive and accessible web applications. Expert in React ecosystem and modern JavaScript frameworks. Passionate about user experience and performance optimization.",
     expectedCtc: "₹45 - 60LPA",
     location: "San Francisco, United States",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Rahul Sharma",
@@ -113,7 +113,7 @@ const talentData = [
     about: "Product Manager at Meta with expertise in driving product vision and strategy. Experienced in leading cross-functional teams and delivering user-centric solutions. Strong analytical skills with focus on data-driven decision making.",
     expectedCtc: "₹70 - 90LPA",
     location: "New York, United States",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "David Wilson",
@@ -133,7 +133,7 @@ const talentData = [
     about: "UX Designer at Adobe with passion for creating intuitive and engaging user experiences. Experienced in conducting user research, creating wireframes, and collaborating with development teams to bring designs to life.",
     expectedCtc: "₹40 - 55LPA",
     location: "Berlin, Germany",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Michael Brown",
@@ -153,7 +153,7 @@ const talentData = [
     about: "Full Stack Developer at Spotify with experience in both frontend and backend technologies. Skilled in building scalable web applications and RESTful APIs. Strong advocate for clean code and test-driven development.",
     expectedCtc: "₹48 - 65LPA",
     location: "Sydney, Australia",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Ahmed Hassan",
@@ -173,7 +173,7 @@ const talentData = [
     about: "Sales Executive at Salesforce with proven track record in B2B sales and client relationship management. Expert in CRM systems and sales analytics. Passionate about building long-term partnerships and exceeding targets.",
     expectedCtc: "₹35 - 50LPA",
     location: "Delhi, India",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Tom Anderson",
@@ -193,7 +193,7 @@ const talentData = [
     about: "Content Writer at HubSpot specializing in technical writing and content marketing. Experienced in creating engaging blog posts, whitepapers, and marketing materials. Strong background in SEO optimization and audience engagement.",
     expectedCtc: "₹25 - 35LPA",
     location: "Berlin, Germany",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Kevin Lee",
@@ -213,7 +213,7 @@ const talentData = [
     about: "Database Administrator at Oracle with extensive experience in database design, optimization, and maintenance. Expert in PostgreSQL and MySQL environments. Passionate about ensuring data integrity and system performance.",
     expectedCtc: "₹38 - 52LPA",
     location: "London, United Kingdom",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Ryan Thompson",
@@ -233,7 +233,7 @@ const talentData = [
     about: "Quality Assurance Engineer at Atlassian with expertise in automated testing and quality processes. Experienced in test framework development and continuous integration. Passionate about ensuring software reliability and user satisfaction.",
     expectedCtc: "₹32 - 45LPA",
     location: "Sydney, Australia",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Carlos Rodriguez",
@@ -253,7 +253,7 @@ const talentData = [
     about: "Business Analyst at McKinsey with strong analytical skills and business acumen. Experienced in process improvement, stakeholder management, and strategic planning. Passionate about using data to drive business decisions and growth.",
     expectedCtc: "₹45 - 65LPA",
     location: "New York, United States",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Hiroshi Tanaka",
@@ -263,7 +263,7 @@ const talentData = [
     about: "Game Developer at Nintendo with passion for creating immersive gaming experiences. Expert in Unity engine and game mechanics design. Experienced in both 2D and 3D game development with focus on player engagement and storytelling.",
     expectedCtc: "₹40 - 55LPA",
     location: "Tokyo, Japan",
-    image: "avatar"
+    image: "avatar2"
   },
   {
     name: "Olivia White",
@@ -273,7 +273,7 @@ const talentData = [
     about: "Customer Support Specialist at Zendesk with exceptional communication skills and technical knowledge. Experienced in troubleshooting complex issues and providing excellent customer experiences. Passionate about helping customers succeed.",
     expectedCtc: "₹22 - 32LPA",
     location: "Toronto, Canada",
-    image: "avatar"
+    image: "avatar2"
   }
 ];
 
