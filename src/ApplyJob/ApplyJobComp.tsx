@@ -1,4 +1,5 @@
-import { Divider, NumberInput, TextInput } from "@mantine/core";
+import { Divider, FileInput, NumberInput, TextInput } from "@mantine/core";
+import { IconPaperclip } from "@tabler/icons-react";
 
 const ApplyJobComp=()=>{
     return <div className="w-2/3 mx-auto ">
@@ -32,6 +33,12 @@ const ApplyJobComp=()=>{
             />
             <TextInput label="Personal Website" withAsterisk placeholder="Enter url" />
             </div>
+            <FileInput
+            leftSection={<IconPaperclip/>}
+            label="Attach Your cv"
+            placeholder="Your cv"
+            leftSectionPointerEvents="none"
+            />
         </div>
     </div>
 }
