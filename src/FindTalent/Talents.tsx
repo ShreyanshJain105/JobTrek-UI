@@ -8,7 +8,7 @@ const Talents=()=>{
             <div className="text-2xl font-semibold">Talents</div>
             <Sort/>
         </div>
-        <div className="mt-10 ml-20 flex flex-wrap gap-10 justify-between">
+        <div className="flex mt-10 flex-wrap gap-5 justify-between mx-14">
             {
                 talentData.map((talent,index)=><TalentCard key={index} {...talent} />)
             }
