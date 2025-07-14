@@ -1,9 +1,12 @@
 import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandX, IconRouteSquare } from "@tabler/icons-react";
 import { footerLinks } from "../Data/Data";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
+    const location=useLocation();
     return (
-        <div className="pt-20 pb-5 bg-mine-shaft-950 font-['poppins']">
+
+       location.pathname!="/signup" && location.pathname!="/login" ? <div className="pt-20 pb-5 bg-mine-shaft-950 font-['poppins']">
             <div className="flex flex-wrap gap-8 lg:gap-12">
                 {/* Brand Section */}
                 <div className="w-full lg:w-1/4 flex flex-col gap-4">
@@ -64,8 +67,8 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div> :<></>
+    ); 
 };
 
 export default Footer;
