@@ -7,19 +7,21 @@ import SelectInput from "./SelectInput";
 import fields from "../Data/Profile";
 import ExpInput from "./ExpInput";
 import { profile } from "../Data/TalentData"; // Removed this import since you're using local data
+import CertiInput from "./CertiInput";
 
 const Profile = () => {
     const select = fields;
     const [skills, setSkills] = useState(['React', 'Spring Boot', 'Java', 'Python', 'Node.js', 'MongoDB', 'Express', 'Django', 'PostgreSQL']);
     const [edit, setEdit] = useState([false, false, false, false, false]);
     const [about, setAbout] = useState('Lorem ipsum dolor, sit amet consectetur adipisicing elit. A, tenetur?');
-    const [addExp,setAddExp]=useState(false);
+    const [addExp, setAddExp] = useState(false);
+    const [addCerti, setAddCerti] = useState(false);
     const handleEdit = (index: number) => {
         const newEdit = [...edit];
         newEdit[index] = !newEdit[index];
         setEdit(newEdit);
     }
-    
+
     return (
         <div className="w-4/5 mx-auto">
             <div className="relative">
@@ -98,30 +100,40 @@ const Profile = () => {
             </div>
             <Divider mx="xs" my="xl" />
             <div className="px-3 ">
-                <div className="text-2xl font-semibold mb-5 flex justify-between">Experience 
+                <div className="text-2xl font-semibold mb-5 flex justify-between">Experience
                     <div className="flex gap-2">
-                    <ActionIcon onClick={() => setAddExp(true)} size="lg" color="brightSun.4" variant="subtle" >
-                    <IconPlus className="h-4/5 w-4/5"/>
-                </ActionIcon>
-                    
-                    <ActionIcon onClick={() => handleEdit(3)} size="lg" color="brightSun.4" variant="subtle" >
-                    {edit[3] ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
-                </ActionIcon></div></div>
+                        <ActionIcon onClick={() => setAddExp(true)} size="lg" color="brightSun.4" variant="subtle" >
+                            <IconPlus className="h-4/5 w-4/5" />
+                        </ActionIcon>
+
+                        <ActionIcon onClick={() => handleEdit(3)} size="lg" color="brightSun.4" variant="subtle" >
+                            {edit[3] ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
+                        </ActionIcon></div></div>
                 <div className="flex flex-col gap-8">
                     {
                         profile[0].experience.map((exp: any, index: number) => <ExperinceCard key={index} {...exp} edit={edit[3]} />)
                     }
-                    {addExp&&<ExpInput add setEdit={setAddExp}/>}
+                    {addExp && <ExpInput add setEdit={setAddExp} />}
                 </div>
             </div>
             <Divider mx="xs" my="xl" />
             <div className="px-3">
-                <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications<ActionIcon onClick={() => handleEdit(4)} size="lg" color="brightSun.4" variant="subtle" >
-                    {edit[4] ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
-                </ActionIcon></div>
+                <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications
+                    <div className="flex gap-2">
+                        <ActionIcon onClick={() => setAddCerti(true)} size="lg" color="brightSun.4" variant="subtle" >
+                            <IconPlus className="h-4/5 w-4/5" />
+                        </ActionIcon>
+                    
+
+                    <ActionIcon onClick={() => handleEdit(4)} size="lg" color="brightSun.4" variant="subtle" >
+                        {edit[4] ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
+                    </ActionIcon></div></div>
                 <div className="flex flex-col gap-8">
                     {
-                        profile[0].certifications.map((certi: any, index: number) => <CertifyCard key={index} {...certi} />)
+                        profile[0].certifications.map((certi: any, index: number) => <CertifyCard key={index} edit={edit[4]} {...certi} />)
+                    }
+                    {
+                        addCerti && <CertiInput setEdit={setAddCerti} />
                     }
                 </div>
             </div>
