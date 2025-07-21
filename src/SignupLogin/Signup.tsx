@@ -1,9 +1,12 @@
-import { PasswordInput, rem, TextInput, Checkbox,Anchor, Button } from "@mantine/core";
+import { PasswordInput, rem, TextInput, Checkbox,Anchor, Button, Radio, Group } from "@mantine/core";
 import { IconAt, IconLock } from "@tabler/icons-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 const Signup = () => {
+     const [value, setValue] = useState('react');
+
     return <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
         <div className="text-2xl font-semibold">Create Account</div>
         <TextInput
@@ -19,6 +22,21 @@ const Signup = () => {
         />
         <PasswordInput withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password" placeholder="Password" />
         <PasswordInput withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Confirm Password" placeholder="Confirm Password" />
+         <Radio.Group
+      value={value}
+      onChange={setValue}
+      name="favoriteFramework"
+      label="Select your favorite framework/library"
+      description="This is anonymous"
+      withAsterisk
+    >
+        <Group mt="xs">
+      <Radio value="react" label="React" />
+      <Radio value="svelte" label="Svelte" />
+      <Radio value="ng" label="Angular" />
+      <Radio value="vue" label="Vue" />
+      </Group>
+    </Radio.Group>
         <Checkbox autoContrast label={<>I accept {''}<Anchor>Terms & Conditions</Anchor></>}/>
         <Button autoContrast variant="filled">Sign up</Button>
 
