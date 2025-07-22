@@ -3,6 +3,7 @@ import { IconAt, IconLock } from "@tabler/icons-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { registerUser } from "../Services/UserService";
+import signupValidation from "../Services/FormValidation";
 
 const form={
     name:"",
@@ -16,10 +17,16 @@ const Signup = () => {
      const [value, setValue] = useState('react');
 
      const [data,setData]=useState(form);
+     const [formError,setFormError]=useState(form);
 
      const handleChange=(event:any)=>{
-        if(typeof(event)=="string")setData({...data,accountType:event});
-        else setData({...data,[event.target.name]:event.target.value})
+        if(typeof(event)=="string"){
+            setData({...data,accountType:event});
+            return ;
+        }
+        let name=event.target.name , value=event.target.value;
+        setData({...data,[name]:value});
+        setFormError({...formError,[name]:signupValidation(name,value)})
      }
      const handleSubmit=()=>{
         registerUser(data).then((res)=>{
@@ -33,15 +40,17 @@ const Signup = () => {
             label="Full Name"
             placeholder="Your Name "
             withAsterisk
+            error={formError.name}
         />
         <TextInput value={data.email} onChange={handleChange} name="email"
             leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
             label="E-mail"
             withAsterisk
             placeholder="Your email"
+            error={formError.email}
         />
-        <PasswordInput value={data.password} name="password" onChange={handleChange} withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password" placeholder="Password" />
-        <PasswordInput value={data.confirmPassword} name="confirmPassword" onChange={handleChange} withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Confirm Password" placeholder="Confirm Password" />
+        <PasswordInput error={formError.password} value={data.password} name="password" onChange={handleChange} withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Password" placeholder="Password" />
+        <PasswordInput error={formError.confirmPassword} value={data.confirmPassword} name="confirmPassword" onChange={handleChange} withAsterisk leftSection={<IconLock size={18} stroke={1.5} />} label="Confirm Password" placeholder="Confirm Password" />
          <Radio.Group 
         value={data.accountType} 
         onChange={handleChange}
