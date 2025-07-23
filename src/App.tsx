@@ -19,6 +19,8 @@ import PostedJob from './Pages/PostedJob';
 import JobHistoryPage from './Pages/JobHistoryPage';
 import SignupPage from './Pages/SignupPage';
 import ProfilePage from './Pages/ProfilePage';
+import '@mantine/notifications/styles.css';
+import { Notifications } from '@mantine/notifications';
 
 function App() {
   const theme = createTheme({
@@ -40,6 +42,7 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme='dark' theme={theme}>
+      <Notifications position='top-center' zIndex={1000}/>
       <BrowserRouter>
         <div className='relative'>
           <Header />

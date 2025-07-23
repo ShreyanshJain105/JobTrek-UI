@@ -27,4 +27,21 @@ const signupValidation = (name: string, value: string): string => {
     }
 };
 
-export default signupValidation;
+const loginValidation=(name: string, value: string): string => {
+    const trimmedValue = value.trim(); // Trim whitespace
+
+    switch (name) {
+        case "email":
+            if (trimmedValue.length === 0) return "Email is required.";
+            return "";
+
+        case "password":
+            if (trimmedValue.length === 0) return "Password is required.";
+            return ""
+
+        default:
+            return "";
+    }
+}
+
+export  {signupValidation,loginValidation};
