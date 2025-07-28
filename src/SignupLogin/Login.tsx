@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../Services/UserService";
 import { loginValidation } from "../Services/FormValidation";
 import { notifications } from "@mantine/notifications";
+import { useDisclosure } from "@mantine/hooks";
+import ResetPassword from "./ResetPassword";
 
 const Login = () => {
     const form = {
@@ -13,6 +15,7 @@ const Login = () => {
     }
     const [data, setData] = useState<{[key:string]:string}>(form);
     const [formError, setFormError] = useState<{[key:string]:string}>(form);
+    const [opened, { open, close }] = useDisclosure(false);
     const navigate = useNavigate();
 
     // Added missing handleChange function
@@ -59,7 +62,7 @@ const Login = () => {
         }
     }
 
-    return <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+    return <> <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
         <div className="text-2xl font-semibold">Login Account</div>
         
         <TextInput
@@ -87,7 +90,11 @@ const Login = () => {
         <div className="text-center">Don't have an account ?<span onClick={()=>{
             navigate("/signup");setFormError(form);setData(form)
         }} className="text-bright-sun-400 hover:underline cursor-pointer">Signup</span></div>
+    
+    <div onClick={open} className="text-bright-sun-400 hover:underline cursor-pointer text-center">Forget Password</div>
     </div>
+    <ResetPassword opened={opened} close={close}/>
+    </>
 }
 
 export default Login;
