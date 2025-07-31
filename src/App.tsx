@@ -21,6 +21,8 @@ import SignupPage from './Pages/SignupPage';
 import ProfilePage from './Pages/ProfilePage';
 import '@mantine/notifications/styles.css';
 import { Notifications } from '@mantine/notifications';
+import { Provider } from 'react-redux';
+import Store from './Store';
 
 function App() {
   const theme = createTheme({
@@ -41,6 +43,7 @@ function App() {
   });
 
   return (
+    <Provider store={Store}>
     <MantineProvider defaultColorScheme='dark' theme={theme}>
       <Notifications position='top-center' zIndex={1000}/>
       <BrowserRouter>
@@ -66,6 +69,7 @@ function App() {
         </div>
       </BrowserRouter>
     </MantineProvider>
+    </Provider>
   );
 }
 

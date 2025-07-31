@@ -29,7 +29,7 @@ const Profile = () => {
                 <img className="rounded-full w-48 h-48 -bottom-1/3 absolute left-3 border-mine-shaft-950 border-8"
                     src="/avatar.png" alt="" />
             </div>
-            <div className="px-3 mt-16 ">
+            <div className="px-3 mt-20 ">
                 <div className="text-3xl font-semibold flex justify-between">Jarood Wood
                     <ActionIcon onClick={() => handleEdit(0)} size="lg" color="brightSun.4" variant="subtle" >
                         {edit[0] ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
