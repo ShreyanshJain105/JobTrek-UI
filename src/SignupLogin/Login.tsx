@@ -29,7 +29,7 @@ const Login = () => {
     }
 
     const handleSubmit = () => {
-        setLoading(true);
+        
         let valid = true, newFormError: {[key:string]:string} = {};
         for(let key in data){
             newFormError[key] = loginValidation(key, data[key]);
@@ -38,6 +38,7 @@ const Login = () => {
         setFormError(newFormError);
         
         if(valid){
+            setLoading(true);
             loginUser(data).then((res) => {
                 console.log(res);
                 notifications.show({
