@@ -2,15 +2,19 @@ import { ActionIcon, Button, Divider, TagsInput, Textarea } from "@mantine/core"
 import { IconBriefcase, IconDeviceFloppy, IconMapPin, IconPencil, IconPlus } from "@tabler/icons-react";
 import ExperinceCard from "./ExperinceCard";
 import CertifyCard from "./CertifyCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectInput from "./SelectInput";
 import fields from "../Data/Profile";
 import ExpInput from "./ExpInput";
 import { profile } from "../Data/TalentData"; // Removed this import since you're using local data
 import CertiInput from "./CertiInput";
+import { useSelector } from "react-redux";
+import { getProfile } from "../Services/ProfileService";
 
 const Profile = () => {
     const select = fields;
+    const user=useSelector((state:any)=>state.user);
+    const profile=useSelector((state:any)=>state.profile);
     const [skills, setSkills] = useState(['React', 'Spring Boot', 'Java', 'Python', 'Node.js', 'MongoDB', 'Express', 'Django', 'PostgreSQL']);
     const [edit, setEdit] = useState([false, false, false, false, false]);
     const [about, setAbout] = useState('Lorem ipsum dolor, sit amet consectetur adipisicing elit. A, tenetur?');
@@ -21,6 +25,14 @@ const Profile = () => {
         newEdit[index] = !newEdit[index];
         setEdit(newEdit);
     }
+    useEffect(()=>{
+        console.log(profile);
+        getProfile(user.id).then((data:any)=>{
+            console.log(data);
+        }).catch((error:any)=>{
+            console.log(error);
+        })
+    },[]);
 
     return (
         <div className="w-4/5 mx-auto">
@@ -111,7 +123,7 @@ const Profile = () => {
                         </ActionIcon></div></div>
                 <div className="flex flex-col gap-8">
                     {
-                        profile[0].experience.map((exp: any, index: number) => <ExperinceCard key={index} {...exp} edit={edit[3]} />)
+                        profile?.experience?.map((exp: any, index: number) => <ExperinceCard key={index} {...exp} edit={edit[3]} />)
                     }
                     {addExp && <ExpInput add setEdit={setAddExp} />}
                 </div>
@@ -130,7 +142,7 @@ const Profile = () => {
                     </ActionIcon></div></div>
                 <div className="flex flex-col gap-8">
                     {
-                        profile[0].certifications.map((certi: any, index: number) => <CertifyCard key={index} edit={edit[4]} {...certi} />)
+                        profile?.certifications?.map((certi: any, index: number) => <CertifyCard key={index} edit={edit[4]} {...certi} />)
                     }
                     {
                         addCerti && <CertiInput setEdit={setAddCerti} />

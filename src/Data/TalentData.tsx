@@ -305,13 +305,13 @@ const profile=[{
     ],
     certifications: [
       {
-        name: "Google Professional Cloud Architect",
+        title: "Google Professional Cloud Architect",
         issuer: "Google",
         issueDate: "Aug 2023",
         certificateId: "CB72982GG"
       },
       {
-        name: "Microsoft Certified: Azure Solutions Architect Expert",
+        title: "Microsoft Certified: Azure Solutions Architect Expert",
         issuer: "Microsoft",
         issueDate: "May 2022",
         certificateId: "MS12345AZ"
