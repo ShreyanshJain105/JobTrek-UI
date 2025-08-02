@@ -8,12 +8,13 @@ import fields from "../Data/Profile";
 import ExpInput from "./ExpInput";
 import { profile } from "../Data/TalentData"; // Removed this import since you're using local data
 import CertiInput from "./CertiInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../Services/ProfileService";
 import Info from "./Info";
+import { setProfile } from "../Slices/ProfileSlice";
 
 const Profile = () => {
-    const select = fields;
+    const dispatch=useDispatch();
     const user=useSelector((state:any)=>state.user);
     const profile=useSelector((state:any)=>state.profile);
     const [skills, setSkills] = useState(['React', 'Spring Boot', 'Java', 'Python', 'Node.js', 'MongoDB', 'Express', 'Django', 'PostgreSQL']);
@@ -29,6 +30,7 @@ const Profile = () => {
     useEffect(()=>{
         console.log(profile);
         getProfile(user.id).then((data:any)=>{
+            dispatch(setProfile(data));
             console.log(data);
         }).catch((error:any)=>{
             console.log(error);
@@ -59,7 +61,7 @@ const Profile = () => {
                                 autosize minRows={3} placeholder="Enter about yourself "
                             />
                         ) : (
-                            <div className="text-sm  text-mine-shaft-300 text-justify">{about}</div>
+                            <div className="text-sm  text-mine-shaft-300 text-justify">{profile?.about}</div>
                         )
                     }
                 </div>
@@ -80,7 +82,7 @@ const Profile = () => {
                     ) : (
                         <div className="flex flex-wrap gap-2">
                             {
-                                skills.map((skill: string, index: number) => (
+                                profile?.skills?.map((skill:any, index: number) => (
                                     <div key={index} className="bg-bright-sun-300 text-sm font-medium bg-opacity-15 rounded-3xl text-bright-sun-400 px-4 py-1">{skill}</div>
                                 ))
                             }
@@ -101,7 +103,7 @@ const Profile = () => {
                         </ActionIcon></div></div>
                 <div className="flex flex-col gap-8">
                     {
-                        profile?.experience?.map((exp: any, index: number) => <ExperinceCard key={index} {...exp} edit={edit[3]} />)
+                        profile?.experiences?.map((exp: any, index: number) => <ExperinceCard key={index} {...exp} edit={edit[3]} />)
                     }
                     {addExp && <ExpInput add setEdit={setAddExp} />}
                 </div>
