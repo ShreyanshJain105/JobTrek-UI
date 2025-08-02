@@ -1,7 +1,7 @@
 import { useState } from "react";
 import fields from "../Data/Profile";
 import { ActionIcon } from "@mantine/core";
-import { IconBriefcase, IconDeviceFloppy, IconMapPin, IconPencil } from "@tabler/icons-react";
+import { IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX } from "@tabler/icons-react";
 import SelectInput from "./SelectInput";
 import { useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,22 +23,33 @@ const Info=()=>{
                 location:profile.location  });
         }else{
             setEdit(false);
-            let updateProfile={...profile,...form.getValues()};
-            dispatch(changeProfile(updateProfile))
-            successNotification("Changes Saved", "Profile updated successfully");
-        }
+         }
         
     }
     const form = useForm({
     mode: 'controlled',
     initialValues: { jobTitle:'',company:'',location:''},
     });
+    const handleSave=()=>{
+        setEdit(false);
+            let updateProfile={...profile,...form.getValues()};
+            dispatch(changeProfile(updateProfile))
+            successNotification("Changes Saved", "Profile updated successfully");
+        
+
+    }
 
     return <>
       <div className="text-3xl font-semibold flex justify-between">{user.name}
-                    <ActionIcon onClick={handleClick} size="lg" color="brightSun.4" variant="subtle" >
-                        {edit ? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
+                  <div>
+                    {edit && <ActionIcon onClick={handleSave} size="lg" color="brightSun.4" 
+                    variant="subtle" ><IconCheck className="h-4/5 w-4/5" /> 
+                    </ActionIcon>}
+
+                     <ActionIcon onClick={handleClick} size="lg" color={edit?} variant="subtle" >
+                        {edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
                     </ActionIcon>
+                </div>
                 </div>
                 {edit ? (
                     <>
