@@ -28,7 +28,7 @@ const ExperinceCard=(props:any)=>{
             <Button onClick={()=>setEdit(true)} color="brifhtSun.4" variant="outline">Edit</Button>
             <Button color="red.8" variant="light">Delete</Button>
         </div>}
-    </div>:<ExpInput setEdit={setEdit}/>
+    </div>:<ExpInput {...props} setEdit={setEdit}/>
 }
 
 export default ExperinceCard;

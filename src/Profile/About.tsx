@@ -23,7 +23,7 @@ const About = () => {
         setEdit(false);
                 let updateProfile = { ...profile, about:about};
                 dispatch(changeProfile(updateProfile))
-                successNotification("Changes Saved", "Profile updated successfully");
+                successNotification("Changes Saved", "About updated successfully");
         
         
     };
