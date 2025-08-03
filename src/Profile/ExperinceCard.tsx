@@ -18,7 +18,7 @@ const ExperinceCard=(props:any)=>{
                 </div>
             </div>
             <div className="text-sm text-mine-shaft-300"> 
-                {formatDate(props.startDate)} - {formatDate(props.endDate)} 
+                {formatDate(props.startDate)} - {props.working?"Present":formatDate(props.endDate)} 
             </div>
         </div>
         <div className="text-sm text-mine-shaft-300 text-justify">

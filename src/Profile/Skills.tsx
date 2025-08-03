@@ -6,27 +6,25 @@ import { ActionIcon, TagsInput } from "@mantine/core";
 import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
 
 const Skills = () => {
-     const dispatch = useDispatch();
-        const [edit, setEdit] = useState(false);
-        const profile = useSelector((state: any) => state.profile);
-        const [skills, setSkills] = useState<string[]>([]);
-        const handleClick = () => {
-            if (!edit) {
-                setEdit(true);
-                setSkills(profile.skills);
-            } else {
-                setEdit(false);
-            }
-        };
-    
-        const handleSave = () => {
+    const dispatch = useDispatch();
+    const [edit, setEdit] = useState(false);
+    const profile = useSelector((state: any) => state.profile);
+    const [skills, setSkills] = useState<string[]>([]);
+    const handleClick = () => {
+        if (!edit) {
+            setEdit(true);
+            setSkills(profile.skills);
+        } else {
             setEdit(false);
-                    let updateProfile = { ...profile, skills:skills};
-                    dispatch(changeProfile(updateProfile))
-                    successNotification("Changes Saved", "Skills updated successfully");
-            
-            
-        };
+        }
+    };
+
+    const handleSave = () => {
+        setEdit(false);
+        let updateProfile = { ...profile, skills: skills };
+        dispatch(changeProfile(updateProfile))
+        successNotification("Changes Saved", "Skills updated successfully");
+    };
     return <div className="px-3">
         <div className="text-2xl font-semibold mb-3 flex justify-between">Skills
             <div>

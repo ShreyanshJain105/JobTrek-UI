@@ -3,28 +3,31 @@ import fields from "../Data/Profile";
 import SelectInput from "./SelectInput";
 import { useEffect, useState } from "react";
 import { MonthPickerInput } from "@mantine/dates";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isNotEmpty, useForm } from "@mantine/form";
+import { changeProfile } from "../Slices/ProfileSlice";
+import { successNotification } from "../Services/NotificationService";
 
 
 
 const ExpInput = (props: any) => {
 
+    const dispatch = useDispatch();
     const profile = useSelector((state: any) => state.profile);
     const select = fields;
     useEffect(() => {
         if (!props.add) {
             form.setValues({
-            title: props.title,
-            company: props.company,
-            location: props.location,
-            description: props.description,
-            startDate:new Date(props.startDate),
-            endDate: new Date(props.endDate),
-            working: props.working
-        })
-    }
-    },[])
+                title: props.title,
+                company: props.company,
+                location: props.location,
+                description: props.description,
+                startDate: new Date(props.startDate),
+                endDate: new Date(props.endDate),
+                working: props.working
+            })
+        }
+    }, [])
 
     const form = useForm({
         mode: 'controlled',
@@ -45,6 +48,30 @@ const ExpInput = (props: any) => {
             description: isNotEmpty("Description is required")
         }
     })
+
+    const handleSave = () => {
+        form.validate();
+        if (!form.isValid()) return;
+        let exp = [...profile.experiences];
+        if (props.add) {
+            exp.push(form.getValues());
+            exp[exp.length - 1].startDate = exp[exp.length - 1].startDate.toISOString();
+            exp[exp.length - 1].endDate = exp[exp.length - 1].endDate.toISOString();
+        }
+        else {
+            exp[props.index] = form.getValues();
+            exp[props.index].startDate = exp[props.index].startDate.toISOString();
+            exp[props.index].endDate = exp[props.index].endDate.toISOString();
+        }
+
+        let updateProfile = { ...profile, experiences: exp };
+        props.setEdit(false);
+        dispatch(changeProfile(updateProfile))
+        successNotification("Changes Saved", `Experience ${props.add?"Added":"Updated"} successfully`);
+
+
+
+    }
     return <div className="flex flex-col gap-3">
         <div className="text-lg font-semibold">{props.add ? "Add" : "Edit"} Experience</div>
         <div className="flex gap-10 [&>*]:w-1/2">
@@ -74,7 +101,7 @@ const ExpInput = (props: any) => {
             />
 
         </div>
-        <Checkbox  checked={form.getValues().working} onChange={(event)=>form.setFieldValue("working",event.currentTarget.checked)}
+        <Checkbox checked={form.getValues().working} onChange={(event) => form.setFieldValue("working", event.currentTarget.checked)}
             autoContrast label="Currently Working Here"
         />
         <div className="flex gap-5 ">
