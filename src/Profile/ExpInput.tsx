@@ -67,7 +67,7 @@ const ExpInput = (props: any) => {
         let updateProfile = { ...profile, experiences: exp };
         props.setEdit(false);
         dispatch(changeProfile(updateProfile))
-        successNotification("Changes Saved", `Experience ${props.add?"Added":"Updated"} successfully`);
+        successNotification("Changes Saved", `Experience ${props.add ? "Added" : "Updated"} successfully`);
 
 
 
@@ -105,7 +105,7 @@ const ExpInput = (props: any) => {
             autoContrast label="Currently Working Here"
         />
         <div className="flex gap-5 ">
-            <Button onClick={handleSave} color="brifhtSun.4" variant="outline">Save</Button>
+            <Button onClick={handleSave} color="green.8" variant="light">Save</Button>
             <Button color="red.8" onClick={() => props.setEdit(false)} variant="light">Discard</Button>
         </div>
 

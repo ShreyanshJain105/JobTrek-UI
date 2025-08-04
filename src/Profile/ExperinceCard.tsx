@@ -14,7 +14,6 @@ const ExperinceCard=(props:any)=>{
         let exp=[...profile.experiences];
         exp.splice(props.index,1);
         let updateProfile = {...profile,experiences:exp};
-        props.setEdit(false);
         dispatch(changeProfile(updateProfile));
         successNotification("Success","Experience Deleted Successfully");
     }
@@ -38,7 +37,8 @@ const ExperinceCard=(props:any)=>{
             {props.description}
         </div>
        {props.edit &&<div className="flex gap-5 ">
-            <Button onClick={()=>setEdit(true)} color="brifhtSun.4" variant="outline">Edit</Button>
+            <Button onClick={()=>setEdit(true)} color="brightSun.4" 
+            variant="outline">Edit</Button>
             <Button color="red.8" onClick={handledelete} variant="light">Delete</Button>
         </div>}
     </div>:<ExpInput {...props} setEdit={setEdit}/>
