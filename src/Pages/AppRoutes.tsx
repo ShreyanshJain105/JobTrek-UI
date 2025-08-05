@@ -18,7 +18,7 @@ import { useSelector } from "react-redux"
 
 
 const AppRoutes = () => {
-    const user=useSelector((state:any)=>state.user);
+    const user = useSelector((state: any) => state.user);
     return (
         <BrowserRouter>
             <div className='relative'>
@@ -26,17 +26,17 @@ const AppRoutes = () => {
                 <Divider size="xs" mx="md" />
                 <Routes>
                     <Route path='/find-jobs' element={<FindJobs />} />
-                    <Route path='/jobs' element={<JobsDes />} />
-                    <Route path='/apply-job' element={<ApplyJobPage />} />
+                    <Route path='/jobs/:id' element={<JobsDes />} />
+                    <Route path='/apply-job/:id' element={<ApplyJobPage />} />
                     <Route path='/find-talent' element={<FindTalentPage />} />
-                    <Route path='/company' element={<CompanyPage />} />
+                    <Route path='/company/:name' element={<CompanyPage />} />
                     <Route path='/posted-job' element={<PostedJob />} />
                     <Route path='/job-history' element={<JobHistoryPage />} />
-                    <Route path='/talent-profile' element={<TalentProfilePage />}/>
+                    <Route path='/talent-profile' element={<TalentProfilePage />} />
                     <Route path='/post-job' element={<PostJobPage />} />
-                   <Route path='/signup' element={user?<Navigate to="/"/>:<SignupPage />} />
-                   <Route path='/login' element={user?<Navigate to="/"/>:<SignupPage />} />
-                   <Route path='/profile' element={<ProfilePage />} />
+                    <Route path='/signup' element={user ? <Navigate to="/" /> : <SignupPage />} />
+                    <Route path='/login' element={user ? <Navigate to="/" /> : <SignupPage />} />
+                    <Route path='/profile' element={<ProfilePage />} />
                     <Route path="*" element={<HomePage />} />
                 </Routes>
                 <Footer />
