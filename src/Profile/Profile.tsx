@@ -20,18 +20,8 @@ import { successNotification } from "../Services/NotificationService";
 
 const Profile = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state: any) => state.user);
-    const profile = useSelector((state: any) => state.profile);
+     const profile = useSelector((state: any) => state.profile);
   
-    useEffect(() => {
-        console.log(profile);
-        getProfile(user.id).then((data: any) => {
-            dispatch(setProfile(data));
-            console.log(data);
-        }).catch((error: any) => {
-            console.log(error);
-        })
-    }, []);
     const {hovered,ref}=useHover();
     const handleFileChange=async(image:any)=>{
         let picture:any = await getBase64(image);

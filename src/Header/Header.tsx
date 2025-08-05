@@ -3,12 +3,25 @@ import { IconRouteSquare ,IconBellFilled,IconSettings } from '@tabler/icons-reac
 import NavLinks from './NavLinks';
 import { Link, useLocation } from 'react-router-dom';
 import ProfileMenu from './ProfileMenu';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getProfile } from '../Services/ProfileService';
+import { setProfile } from '../Slices/ProfileSlice';
 
 
 const Header=() => {
     const location=useLocation();
-    const user=useSelector((state:any)=>state.user);
+    const dispatch = useDispatch();
+    const user = useSelector((state: any) => state.user);
+    
+    useEffect(() => {
+        getProfile(user.id).then((data: any) => {
+            dispatch(setProfile(data));
+            console.log(data);
+        }).catch((error: any) => {
+            console.log(error);
+        })
+    }, []);
     return (
 
        location.pathname!="/signup" && location.pathname!="/login" ? <div className="w-full bg-mine-shaft-950 text-white h-20 px-6 flex justify-between 
