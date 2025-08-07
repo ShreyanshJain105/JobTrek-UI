@@ -1,11 +1,28 @@
 import { ActionIcon, Button, Divider } from "@mantine/core";
-import { IconAdjustments, IconBookmark, IconMapPin } from "@tabler/icons-react";
+import { IconAdjustments, IconBookmark, IconBookmarkFilled, IconMapPin } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { card } from "../Data/JobDescData";
 import DOMPurify from 'dompurify';
 import { timeAgo } from "../Services/Utilities";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../Slices/ProfileSlice";
 
 const JobDesc = (props: any) => {
+    const dispatch=useDispatch();
+     const profile = useSelector((state: any) => state.profile);
+     const handleSaveJob = () => {
+         // Ensure savedJobs is always an array, defaulting to empty array if undefined/null
+         let savedJobs: any = profile.savedJobs ? [...profile.savedJobs] : [];
+         
+         if (savedJobs.includes(props.id)) {
+             savedJobs = savedJobs.filter((id: any) => id !== props.id);
+         } else {
+             savedJobs = [...savedJobs, props.id];
+         }
+         
+         let updateProfile = { ...profile, savedJobs: savedJobs };
+         dispatch(changeProfile(updateProfile));
+     }
     const data = DOMPurify.sanitize(props.description);
     return <div className="w-2/3">
         <div className="flex justify-between">
@@ -23,7 +40,10 @@ const JobDesc = (props: any) => {
                     <Button color="brightSun.4" size="sm" variant="light" >{props.edit ? "Edit" : "Apply"} </Button>
                 </Link>
 
-                {props.edit ? <Button color="red.5" size="sm" variant="outline" >Delete</Button> : <IconBookmark className="text-bright-sun-400 cursor-pointer" stroke={1.5} />}
+                {props.edit ? <Button color="red.5" size="sm" variant="outline" >Delete</Button> : profile.savedJobs?.includes(props.id)?<IconBookmarkFilled
+                onClick={handleSaveJob} className="cursor-pointer text-bright-sun-400" 
+                stroke={1.5}/>:<IconBookmark onClick={handleSaveJob} className="text-mine-shaft-300 cursor-pointer 
+                hover:text-bright-sun-400" stroke={1.5}/>}
             </div>
         </div>
         <Divider my="xl" />
@@ -74,8 +94,7 @@ const JobDesc = (props: any) => {
                     <Button color="brightSun.4" variant="light" >Company Page </Button>
                 </Link>
             </div>
-            <div className="text-mine-shaft-300 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit quidem, minus provident voluptates qui illum dolores voluptatem, similique officiis voluptate molestias dicta! Ratione enim officia asp
-                ernatur, aperiam quam tenetur minus, nulla cumque, minima veniam culpa quia! Mollitia corporis minima obcaecati.</div>
+            <div className="text-mine-shaft-300 text-justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem, ex!</div>
         </div>
     </div>
 }
