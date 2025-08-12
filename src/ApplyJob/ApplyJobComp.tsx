@@ -1,7 +1,4 @@
 import { Button, CheckIcon, Divider, FileInput, LoadingOverlay, Notification, NumberInput, Textarea, TextInput } from "@mantine/core";
-import { IconCheck, IconEdit, IconEyeCheck, IconPaperclip, IconRosetteDiscountCheck, IconRosetteDiscountCheckFilled } from "@tabler/icons-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ApplicationForm from "./ApplicationForm";
 import { timeAgo } from "../Services/Utilities";
 
@@ -12,7 +9,7 @@ const ApplyJobComp=(props:any)=>{
          <div className="flex justify-between">
             <div className="flex gap-2 items-center">
                 <div className="p-3 bg-mine-shaft-800 rounded-xl">
-                    <img className="h-14 " src={`/Icons/Google.png`} alt="" />
+                    <img className="h-14 " src={`/Icons/${props.company}.png`} alt="" />
                 </div>
                 <div className="flex flex-col gap-1">
                     <div className="font-semibold text-2xl">{props.jobTitle} </div>
