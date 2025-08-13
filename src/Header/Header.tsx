@@ -14,14 +14,19 @@ const Header=() => {
     const dispatch = useDispatch();
     const user = useSelector((state: any) => state.user);
     
-    useEffect(() => {
-        getProfile(user.id).then((data: any) => {
-            dispatch(setProfile(data));
-            console.log(data);
-        }).catch((error: any) => {
-            console.log(error);
-        })
-    }, []);
+   useEffect(() => {
+    if (user && user.id) {
+        getProfile(user.id)
+            .then((data: any) => {
+                dispatch(setProfile(data));
+                console.log(data);
+            })
+            .catch((error: any) => {
+                console.error('Error fetching profile:', error);
+            });
+    }
+}, [user, dispatch]);
+
     return (
 
        location.pathname!="/signup" && location.pathname!="/login" ? <div className="w-full bg-mine-shaft-950 text-white h-20 px-6 flex justify-between 
