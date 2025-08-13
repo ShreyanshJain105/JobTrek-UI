@@ -7,8 +7,10 @@ import { isNotEmpty, useForm } from "@mantine/form";
 import { postJob } from "../Services/JobService";
 import { errorNotification, successNotification } from "../Services/NotificationService";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
+    const user=useSelector((state:any)=>state.user);
     const navigate = useNavigate();
     const select = fields;
     const form = useForm({
@@ -40,12 +42,22 @@ const PostJob = () => {
     const handlePost=()=>{
         form.validate();
         if(!form.isValid())return;
-        postJob(form.getValues()).then((res)=>{
+        postJob({...form.getValues(),postedBy:user.id,jobStatus:"ACTIVE"}).then((res)=>{
             successNotification("Success","Job Posted Successfully");
-            navigate("/jobs")
+            navigate(`/jobs/${res.id}`);
         }).catch((err)=>{
             console.log(err);
             errorNotification("Unable to Post ",err.response.data.errorMessage);
+        })
+
+    }
+    const handleDraft=()=>{
+        postJob({...form.getValues(),postedBy:user.id,jobStatus:"DRAFT"}).then((res)=>{
+            successNotification("Success","Job Drafted Successfully");
+            navigate(`/jobs/${res.id}`);
+        }).catch((err)=>{
+            console.log(err);
+            errorNotification("Unable to Draft ",err.response.data.errorMessage);
         })
 
     }
@@ -77,7 +89,7 @@ const PostJob = () => {
             </div>
             <div className="flex gap-4 ">
                 <Button color="brightSun.4" onClick={handlePost} variant="light" >Publish Job </Button>
-                <Button color="brightSun.4" variant="outline" >Save as draft </Button>
+                <Button color="brightSun.4" onClick={handleDraft} variant="outline" >Save as draft </Button>
 
             </div>
         </div>

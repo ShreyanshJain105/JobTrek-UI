@@ -4,7 +4,6 @@ import JobsDes from "./JobsDes"
 import ApplyJobPage from "./ApplyJobPage"
 import FindTalentPage from "./FindTalentPage"
 import CompanyPage from "./CompanyPage"
-import PostedJob from "./PostedJob"
 import JobHistoryPage from "./JobHistoryPage"
 import TalentProfilePage from "./TalentProfilePage"
 import PostJobPage from "./PostJobPage"
@@ -15,6 +14,8 @@ import { Divider } from "@mantine/core" // Make sure to import Divider if using 
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import { useSelector } from "react-redux"
+import PostedJob from "./PostedJob"
+
 
 
 const AppRoutes = () => {
@@ -30,7 +31,7 @@ const AppRoutes = () => {
                     <Route path='/apply-job/:id' element={<ApplyJobPage />} />
                     <Route path='/find-talent' element={<FindTalentPage />} />
                     <Route path='/company/:name' element={<CompanyPage />} />
-                    <Route path='/posted-job' element={<PostedJob />} />
+                    <Route path='/posted-job' element={<PostedJob/>} />
                     <Route path='/job-history' element={<JobHistoryPage />} />
                     <Route path='/talent-profile' element={<TalentProfilePage />} />
                     <Route path='/post-job' element={<PostJobPage />} />
