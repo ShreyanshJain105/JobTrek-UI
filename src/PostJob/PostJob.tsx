@@ -44,7 +44,7 @@ const PostJob = () => {
         if(!form.isValid())return;
         postJob({...form.getValues(),postedBy:user.id,jobStatus:"ACTIVE"}).then((res)=>{
             successNotification("Success","Job Posted Successfully");
-            navigate(`/jobs/${res.id}`);
+            navigate(`/posted-jobs/${res.id}`);
         }).catch((err)=>{
             console.log(err);
             errorNotification("Unable to Post ",err.response.data.errorMessage);
@@ -52,9 +52,10 @@ const PostJob = () => {
 
     }
     const handleDraft=()=>{
-        postJob({...form.getValues(),postedBy:user.id,jobStatus:"DRAFT"}).then((res)=>{
+        postJob({...form.getValues(),postedBy:user.id,jobStatus:"DRAFT"})
+        .then((res)=>{
             successNotification("Success","Job Drafted Successfully");
-            navigate(`/jobs/${res.id}`);
+             navigate(`/posted-jobs/${res.id}`);
         }).catch((err)=>{
             console.log(err);
             errorNotification("Unable to Draft ",err.response.data.errorMessage);
