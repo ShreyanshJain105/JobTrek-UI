@@ -1,4 +1,5 @@
 import { IconBookmark } from "@tabler/icons-react";
+import { formatDate } from "../Services/Utilities";
 
 const ExperinceCard=(props:any)=>{
     return <div className="flex flex-col gap-2 ">
@@ -13,7 +14,7 @@ const ExperinceCard=(props:any)=>{
                 </div>
             </div>
             <div className="text-sm text-mine-shaft-300"> 
-                {props.startDate} - {props.endDate} 
+                {formatDate(props.startDate)} - {formatDate(props.endDate)} 
             </div>
         </div>
         <div className="text-sm text-mine-shaft-300 text-justify">

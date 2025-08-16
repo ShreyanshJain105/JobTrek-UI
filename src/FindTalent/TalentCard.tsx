@@ -7,7 +7,7 @@ import { DateInput, PickerControl, TimeInput } from "@mantine/dates";
 import { getProfile } from "../Services/ProfileService";
 import { changeAppStatus } from "../Services/JobService";
 import { errorNotification, successNotification } from "../Services/NotificationService";
-import { formatInterviewTime } from "../Services/Utilities";
+import { formatInterviewTime, openBase64File } from "../Services/Utilities";
 
 const TalentCard = (props: any) => {
     const { id } = useParams();
@@ -26,34 +26,43 @@ const TalentCard = (props: any) => {
         else setProfile(props);
     }, [props]);
 
-    const handleOffer = (status: string) => {
-        // Check if date and time are available
-        if (!date || !time) {
-            errorNotification("Error", "Please select both date and time");
-            return;
-        }
+ const handleOffer = (status: string) => {
+    // Check if date and time are available (for interview scheduling)
+    if (status === "INTERVIEWING" && (!date || !time)) {
+        errorNotification("Error", "Please select both date and time");
+        return;
+    }
 
-        const [hours, minutes] = time.split(":").map(Number);
-        const newDate = new Date(date); // Create new Date from selected date
-        newDate.setHours(hours, minutes, 0, 0); // Set hours, minutes, seconds, ms
-
-        let interview: any = {
-            id,
-            applicantId: profile.id,
-            applicationStatus: status,
-            interviewTime: newDate.toISOString() // Use the modified date with time
-        };
-
-        changeAppStatus(interview)
-            .then((res) => {
-                successNotification("Interview Scheduled", "Successfully scheduled the interview.");
-                setTimeout(() => window.location.reload(), 2000);
-            })
-            .catch((err) => {
-                console.error(err);
-                errorNotification("Error", err.response?.data?.errorMessage || "Failed to schedule interview");
-            });
+    let interview: any = {
+        id,
+        applicantId: profile.id,
+        applicationStatus: status,
+        interviewTime: new Date().toISOString(), // default, will update below
     };
+
+    if (status === "INTERVIEWING") {
+        const [hours, minutes] = time.split(":").map(Number);
+        const newDate = new Date(date!); // date is string|null, so non-null assertion
+        newDate.setHours(hours, minutes, 0, 0);
+        interview = { ...interview, interviewTime: newDate.toISOString() };
+    }
+
+    changeAppStatus(interview)
+        .then(() => {
+            if (status === "INTERVIEWING") {
+                successNotification("Interview Scheduled", "Successfully scheduled the interview.");
+            } else if (status === "OFFERED") {
+                successNotification("Offered", "Offer sent successfully.");
+            } else {
+                successNotification("Rejected", "Applicant has been rejected.");
+            }
+            setTimeout(() => window.location.reload(), 2000);
+        })
+        .catch((err) => {
+            console.error(err);
+            errorNotification("Error", err.response?.data?.errorMessage || "Failed to schedule interview");
+        });
+};
 
     return <div className="bg-mine-shaft-900 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ">
         <div className="flex justify-between">
@@ -93,7 +102,7 @@ const TalentCard = (props: any) => {
         <div className="flex [&>*]:w-1/2 [&>*]:p-1">
             {
                 !props.invited && <>
-                    <Link to="/talent-profile">
+                    <Link to={`/talent-profile/${profile?.id}`}>
                         <Button color="brightSun.4" variant="outline" fullWidth >Profile</Button>
                     </Link>
                     <div className="">
@@ -105,17 +114,17 @@ const TalentCard = (props: any) => {
             {
                 props.invited && <>
                     <div>
-                        <Button color="brightSun.4" variant="outline" fullWidth >Accept</Button>
+                        <Button color="brightSun.4" variant="outline" onClick={()=>handleOffer("OFFERED")} fullWidth >Accept</Button>
                     </div>
                     <div>
-                        <Button color="brightSun.4" variant="light" fullWidth >Reject</Button>
+                        <Button color="brightSun.4" variant="light" onClick={()=>handleOffer("REJECTED")} fullWidth >Reject</Button>
                     </div>
                 </>
             }
         </div>
         {
-            (props.invited || props.posted) && <Button color="brightSun.4" 
-            variant="filled" fullWidth autoContrast onClick={openApp}>View Application</Button>
+            (props.invited || props.posted) && <Button color="brightSun.4"
+                variant="filled" fullWidth autoContrast onClick={openApp}>View Application</Button>
 
         }
 
@@ -134,7 +143,7 @@ const TalentCard = (props: any) => {
             </div>
 
         </Modal>
-        <Modal opened={app} onClose={closeApp} radius="lg" title="Schedule Interview" centered>
+        <Modal opened={app} onClose={closeApp} radius="lg" title="Application" centered>
             <div className="flex flex-col gap-4">
                 <div>
                     Email:&emsp;
@@ -151,21 +160,26 @@ const TalentCard = (props: any) => {
                         className="text-bright-sun-400 hover:underline cursor-pointer text-center"
                         href={props.website}
                         target="_blank"
-                        rel="noopener noreferrer"
                     >
                         {props.website}
                     </a>
                 </div>
                 <div>
                     Resume:&emsp;
-                    <a
+                    <span
                         className="text-bright-sun-400 hover:underline cursor-pointer text-center"
-                        href={props.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => openBase64File(props.resume)}
                     >
-                        {props.website}
-                    </a>
+                        {props.name}
+                    </span>
+                </div>
+
+                <div>
+                    CoverLetter:&emsp;
+                    <div
+                    >
+                        {props.CoverLetter}
+                    </div>
                 </div>
 
             </div>

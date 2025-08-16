@@ -51,4 +51,26 @@ const formatInterviewTime=(dateStr:any)=>{
 });
 
 } 
-export {formatDate,timeAgo,getBase64,formatInterviewTime};
+
+function openBase64File(base64String:string, fileType = "application/pdf") {
+  // Decode base64 string
+  const byteCharacters = atob(base64String);
+  const byteNumbers = new Array(byteCharacters.length);
+
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNumbers);
+
+  // Create a Blob with the correct MIME type
+  const blob = new Blob([byteArray], { type: fileType });
+
+  // Create a URL for the Blob
+  const blobUrl = URL.createObjectURL(blob);
+
+  // Open in a new tab
+  window.open(blobUrl, "_blank");
+}
+
+export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64File};
