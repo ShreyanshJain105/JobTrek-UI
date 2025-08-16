@@ -36,6 +36,19 @@ const getBase64=(file:any)=>{
             reader.onload=()=>resolve(reader.result);
             reader.onerror=error=>reject(error);
         })
-    }
+}
+  
+const formatInterviewTime=(dateStr:any)=>{
+  const date = new Date(dateStr);
 
-export {formatDate,timeAgo,getBase64};
+  return date.toLocaleString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  hour12: true
+});
+
+} 
+export {formatDate,timeAgo,getBase64,formatInterviewTime};

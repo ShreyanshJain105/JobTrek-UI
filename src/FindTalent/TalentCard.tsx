@@ -7,14 +7,16 @@ import { DateInput, PickerControl, TimeInput } from "@mantine/dates";
 import { getProfile } from "../Services/ProfileService";
 import { changeAppStatus } from "../Services/JobService";
 import { errorNotification, successNotification } from "../Services/NotificationService";
+import { formatInterviewTime } from "../Services/Utilities";
 
 const TalentCard = (props: any) => {
-    const {id}=useParams();
+    const { id } = useParams();
     const [opened, { open, close }] = useDisclosure(false);
     const [date, setDate] = useState<string | null>(null);
     const [time, setTime] = useState<any>(null);
     const ref = useRef<HTMLInputElement>(null);
     const [profile, setProfile] = useState<any>({});
+    const [app, { open: openApp, close: closeApp }] = useDisclosure(false);
     useEffect(() => {
         if (props.applicantId) getProfile(props.applicantId).then((res) => {
             setProfile(res);
@@ -24,34 +26,34 @@ const TalentCard = (props: any) => {
         else setProfile(props);
     }, [props]);
 
-   const handleOffer = (status: string) => {
-    // Check if date and time are available
-    if (!date || !time) {
-        errorNotification("Error", "Please select both date and time");
-        return;
-    }
+    const handleOffer = (status: string) => {
+        // Check if date and time are available
+        if (!date || !time) {
+            errorNotification("Error", "Please select both date and time");
+            return;
+        }
 
-    const [hours, minutes] = time.split(":").map(Number);
-    const newDate = new Date(date); // Create new Date from selected date
-    newDate.setHours(hours, minutes, 0, 0); // Set hours, minutes, seconds, ms
-    
-    let interview: any = {
-        id, 
-        applicantId: profile.id, 
-        applicationStatus: status,
-        interviewTime: newDate.toISOString() // Use the modified date with time
+        const [hours, minutes] = time.split(":").map(Number);
+        const newDate = new Date(date); // Create new Date from selected date
+        newDate.setHours(hours, minutes, 0, 0); // Set hours, minutes, seconds, ms
+
+        let interview: any = {
+            id,
+            applicantId: profile.id,
+            applicationStatus: status,
+            interviewTime: newDate.toISOString() // Use the modified date with time
+        };
+
+        changeAppStatus(interview)
+            .then((res) => {
+                successNotification("Interview Scheduled", "Successfully scheduled the interview.");
+                setTimeout(() => window.location.reload(), 2000);
+            })
+            .catch((err) => {
+                console.error(err);
+                errorNotification("Error", err.response?.data?.errorMessage || "Failed to schedule interview");
+            });
     };
-
-    changeAppStatus(interview)
-        .then((res) => {
-            successNotification("Interview Scheduled", "Successfully scheduled the interview.");
-            setTimeout(() => window.location.reload(), 2000);
-        })
-        .catch((err) => {
-            console.error(err);
-            errorNotification("Error", err.response?.data?.errorMessage || "Failed to schedule interview");
-        });
-};
 
     return <div className="bg-mine-shaft-900 p-4 w-96 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ">
         <div className="flex justify-between">
@@ -79,7 +81,7 @@ const TalentCard = (props: any) => {
         <Divider size="xs" color="mineShaft.7" />
         {
             props.invited ? <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
-                <IconCalendarMonth stroke={1.5} />Interview : Auguest 27,2025 10:00 Am
+                <IconCalendarMonth stroke={1.5} />Interview : {formatInterviewTime(props.interviewTime)}
             </div> : <div className="flex justify-between">
                 <div className="font-semibold text-mine-shaft-200">25</div>
                 <div className=" p-1 flex gap-1 text-xs test-mine-shaft-400 items-center">
@@ -111,6 +113,11 @@ const TalentCard = (props: any) => {
                 </>
             }
         </div>
+        {
+            (props.invited || props.posted) && <Button color="brightSun.4" 
+            variant="filled" fullWidth autoContrast onClick={openApp}>View Application</Button>
+
+        }
 
         <Modal opened={opened} onClose={close} title="Schedule Interview" centered>
             <div className="flex flex-col gap-4">
@@ -126,6 +133,42 @@ const TalentCard = (props: any) => {
                 <Button onClick={() => handleOffer("INTERVIEWING")} color="brightSun.4" variant="light" fullWidth >Schedule</Button>
             </div>
 
+        </Modal>
+        <Modal opened={app} onClose={closeApp} radius="lg" title="Schedule Interview" centered>
+            <div className="flex flex-col gap-4">
+                <div>
+                    Email:&emsp;
+                    <a
+                        className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+                        href={`mailto:${props.email}`}
+                    >
+                        {props.email}
+                    </a>
+                </div>
+                <div>
+                    Website:&emsp;
+                    <a
+                        className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+                        href={props.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {props.website}
+                    </a>
+                </div>
+                <div>
+                    Resume:&emsp;
+                    <a
+                        className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+                        href={props.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {props.website}
+                    </a>
+                </div>
+
+            </div>
         </Modal>
     </div>
 }
