@@ -19,7 +19,6 @@ const Header=() => {
         getProfile(user.id)
             .then((data: any) => {
                 dispatch(setProfile(data));
-                console.log(data);
             })
             .catch((error: any) => {
                 console.error('Error fetching profile:', error);

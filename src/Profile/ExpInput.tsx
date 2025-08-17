@@ -52,26 +52,24 @@ const ExpInput = (props: any) => {
     const handleSave = () => {
         form.validate();
         if (!form.isValid()) return;
+
         let exp = [...profile.experiences];
         if (props.add) {
             exp.push(form.getValues());
-            exp[exp.length - 1].startDate = exp[exp.length - 1].startDate.toISOString();
-            exp[exp.length - 1].endDate = exp[exp.length - 1].endDate.toISOString();
-        }
-        else {
+            exp[exp.length - 1].startDate = new Date(exp[exp.length - 1].startDate).toISOString();
+            exp[exp.length - 1].endDate = new Date(exp[exp.length - 1].endDate).toISOString();
+        } else {
             exp[props.index] = form.getValues();
-            exp[props.index].startDate = exp[props.index].startDate.toISOString();
-            exp[props.index].endDate = exp[props.index].endDate.toISOString();
+            exp[props.index].startDate = new Date(exp[props.index].startDate).toISOString();
+            exp[props.index].endDate = new Date(exp[props.index].endDate).toISOString();
         }
 
         let updateProfile = { ...profile, experiences: exp };
         props.setEdit(false);
-        dispatch(changeProfile(updateProfile))
+        dispatch(changeProfile(updateProfile));
         successNotification("Changes Saved", `Experience ${props.add ? "Added" : "Updated"} successfully`);
+    };
 
-
-
-    }
     return <div className="flex flex-col gap-3">
         <div className="text-lg font-semibold">{props.add ? "Add" : "Edit"} Experience</div>
         <div className="flex gap-10 [&>*]:w-1/2">

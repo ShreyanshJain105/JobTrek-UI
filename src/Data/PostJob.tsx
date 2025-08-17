@@ -163,6 +163,18 @@ const fields = [
         ]
     }
 ];
-const content =
-  '<h4>About The Job</h4><p>Write description here...</p><h4>Responsibilities</h4><ul><li>Add responsibilities here...</li></ul><h4>Qualifications and Skill Sets</h4><ul><li>Add required qualification and skill set here...</li></ul>';
+const content = `
+  <h4>About the Role</h4>
+  <p>Briefly describe the position and its impact on the organization.</p>
+
+  <h4>Responsibilities</h4>
+  <ul>
+    <li>List key duties and day-to-day tasks.</li>
+  </ul>
+
+  <h4>Qualifications & Skills</h4>
+  <ul>
+    <li>Specify required education, skills, and experience.</li>
+  </ul>
+`;
 export  {fields, content};

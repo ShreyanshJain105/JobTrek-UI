@@ -4,15 +4,35 @@ import SelectInput from "./SelectInput";
 import TextEditor from "./TextEditor";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { isNotEmpty, useForm } from "@mantine/form";
-import { postJob } from "../Services/JobService";
+import { getJob, postJob } from "../Services/JobService";
 import { errorNotification, successNotification } from "../Services/NotificationService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const PostJob = () => {
-    const user=useSelector((state:any)=>state.user);
+    const { id } = useParams();
+    const [editorData, setEditorData] = useState(content);
+    const user = useSelector((state: any) => state.user);
     const navigate = useNavigate();
     const select = fields;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        if (id !== "0") {
+            getJob(id).then((res) => {
+                form.setValues(res);
+                setEditorData(res.description);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        else {
+            form.reset();
+            setEditorData(content);
+        }
+    }, [id])
+
     const form = useForm({
         mode: "controlled",
         validateInputOnChange: true,
@@ -39,27 +59,27 @@ const PostJob = () => {
             description: isNotEmpty("Description is required")
         }
     });
-    const handlePost=()=>{
+    const handlePost = () => {
         form.validate();
-        if(!form.isValid())return;
-        postJob({...form.getValues(),postedBy:user.id,jobStatus:"ACTIVE"}).then((res)=>{
-            successNotification("Success","Job Posted Successfully");
+        if (!form.isValid()) return;
+        postJob({ ...form.getValues(), id, postedBy: user.id, jobStatus: "ACTIVE" }).then((res) => {
+            successNotification("Success", "Job Posted Successfully");
             navigate(`/posted-jobs/${res.id}`);
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
-            errorNotification("Unable to Post ",err.response.data.errorMessage);
+            errorNotification("Unable to Post ", err.response.data.errorMessage);
         })
 
     }
-    const handleDraft=()=>{
-        postJob({...form.getValues(),postedBy:user.id,jobStatus:"DRAFT"})
-        .then((res)=>{
-            successNotification("Success","Job Drafted Successfully");
-             navigate(`/posted-jobs/${res.id}`);
-        }).catch((err)=>{
-            console.log(err);
-            errorNotification("Unable to Draft ",err.response.data.errorMessage);
-        })
+    const handleDraft = () => {
+        postJob({ ...form.getValues(), id, postedBy: user.id, jobStatus: "DRAFT" })
+            .then((res) => {
+                successNotification("Success", "Job Drafted Successfully");
+                navigate(`/posted-jobs/${res.id}`);
+            }).catch((err) => {
+                console.log(err);
+                errorNotification("Unable to Draft ", err.response.data.errorMessage);
+            })
 
     }
     return <div className="w-4/5 mx-auto">
@@ -75,18 +95,18 @@ const PostJob = () => {
             </div>
             <div className="flex gap-10 [&>*]:w-1/2">
                 <SelectInput form={form} name="location" {...select[4]} />
-                  <NumberInput {...form.getInputProps('packageOffered')} label="Salary in LPA" placeholder="Enter Salary" min={1} max={300} clampBehavior="strict" hideControls withAsterisk />
+                <NumberInput {...form.getInputProps('packageOffered')} label="Salary in LPA" placeholder="Enter Salary" min={1} max={300} clampBehavior="strict" hideControls withAsterisk />
             </div>
-            <TagsInput withAsterisk {...form.getInputProps('skillsRequired')} label="Skills" placeholder="Enter Skills" 
-            clearable acceptValueOnBlur splitChars={[',', ' ', '|']} />
+            <TagsInput withAsterisk {...form.getInputProps('skillsRequired')} label="Skills" placeholder="Enter Skills"
+                clearable acceptValueOnBlur splitChars={[',', ' ', '|']} />
 
-             <Textarea {...form.getInputProps('about')} withAsterisk className="my-3"
-                        label="About" autosize minRows={3} placeholder="Enter About Job....... "
-                    />
+            <Textarea {...form.getInputProps('about')} withAsterisk className="my-3"
+                label="About" autosize minRows={3} placeholder="Enter About Job....... "
+            />
             <div className="[&_button[data-active='true']]:!text-bright-sun-400 [&_button[data-active='true']]:!bg-bright-sun-400/20 ">
 
                 <div className="text-sm font-medium">Job Description <span className="text-red-500">*</span></div>
-                <TextEditor form={form} />
+                <TextEditor form={form} data={editorData} />
             </div>
             <div className="flex gap-4 ">
                 <Button color="brightSun.4" onClick={handlePost} variant="light" >Publish Job </Button>

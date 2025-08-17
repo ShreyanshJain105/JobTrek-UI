@@ -22,6 +22,7 @@ const TalentCard = (props: any) => {
             setProfile(res);
         }).catch((err) => {
             console.log(err);
+
         })
         else setProfile(props);
     }, [props]);
@@ -72,7 +73,7 @@ const TalentCard = (props: any) => {
                         `data:image/jpeg;base64,${profile?.picture}` : "/Avatar.png"} alt="" />
                 </div>
                 <div>
-                    <div className="font-semibold text-lg">{props.name}</div>
+                    <div className="font-semibold text-lg">{profile?.name || props?.name}</div>
                     <div className="text-sm text-mine-shaft-300"> {profile?.jobTitle} &bull; {profile?.company}</div>
                 </div>
             </div>
@@ -92,7 +93,9 @@ const TalentCard = (props: any) => {
             props.invited ? <div className="flex gap-1 text-mine-shaft-200 text-sm items-center">
                 <IconCalendarMonth stroke={1.5} />Interview : {formatInterviewTime(props.interviewTime)}
             </div> : <div className="flex justify-between">
-                <div className="font-semibold text-mine-shaft-200">25</div>
+                <div className=" text-mine-shaft-100">
+                    Experience : {props.totalExp?props.totalExp:1} Years
+                </div>
                 <div className=" p-1 flex gap-1 text-xs test-mine-shaft-400 items-center">
                     <IconMapPin className="h-5 w-5 " stroke={1.5} />{profile?.location}
                 </div>
