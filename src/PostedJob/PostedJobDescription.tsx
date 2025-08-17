@@ -38,7 +38,8 @@ const PostedJobDescription = (props: any) => {
                             </Tabs.List>
 
                             <Tabs.Panel value="overview" className="[&>div]:w-full">
-                                <JobDesc {...props} edit />
+                                <JobDesc {...props} edit={true} closed={props.jobStatus=="CLOSED"} />:
+                               
                             </Tabs.Panel>
 
                             <Tabs.Panel value="applicants">

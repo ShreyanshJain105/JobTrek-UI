@@ -7,16 +7,23 @@ import { useEffect, useState } from "react";
 import { getProfile } from "../Services/ProfileService";
 
 const Profile = (props: any) => {
-    const id = useParams();
+    const { id } = useParams<{ id: string }>(); // get only the id string
+
     const [profile, setProfile] = useState<any>({});
     useEffect(() => {
-        window.scrollTo(0, 0);
-        getProfile(id).then((res) => {
-            setProfile(res);
-        }).catch((err) => {
-            console.log(err);
-        })
-    }, [id])
+        if (id) {
+            getProfile(id)   // now sends .../get/1 instead of .../get/[object Object]
+                .then((res) => {
+                    console.log("Fetched profile:", res);
+                    setProfile(res);
+                })
+                .catch((err) => {
+                    console.error("Error fetching profile:", err);
+                });
+        }
+    }, [id]);
+
+
     return <div className="w-2/3">
         <div className="relative">
             <img className="rounded-t-2xl" src="/Profile/banner.jpg" alt="" />

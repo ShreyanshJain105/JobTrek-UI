@@ -41,6 +41,13 @@ const PostedJobb = (props: any) => {
               ).length || 0}
               ]
             </Tabs.Tab>
+            <Tabs.Tab value="CLOSED">
+              Closed [
+              {props.jobList?.filter(
+                (job: any) => job?.jobStatus === "CLOSED"
+              ).length || 0}
+              ]
+            </Tabs.Tab>
           </Tabs.List>
         </Tabs>
 
