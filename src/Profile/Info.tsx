@@ -1,7 +1,7 @@
 import { useState } from "react";
 import fields from "../Data/Profile";
-import { ActionIcon } from "@mantine/core";
-import { IconBriefcase, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX } from "@tabler/icons-react";
+import { ActionIcon, NumberInput } from "@mantine/core";
+import { IconBriefcase, IconBuildingSkyscraper, IconCheck, IconDeviceFloppy, IconMapPin, IconPencil, IconX } from "@tabler/icons-react";
 import SelectInput from "./SelectInput";
 import { useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,8 @@ const Info = () => {
             form.setValues({
                 jobTitle: profile.jobTitle,
                 company: profile.company,
-                location: profile.location
+                location: profile.location,
+                totalExp:profile.totalExp
             });
         } else {
             setEdit(false);
@@ -30,7 +31,7 @@ const Info = () => {
     }
     const form = useForm({
         mode: 'controlled',
-        initialValues: { jobTitle: '', company: '', location: '' },
+        initialValues: { jobTitle: '', company: '', location: '',totalExp:1 },
     });
     const handleSave = () => {
         setEdit(false);
@@ -55,11 +56,27 @@ const Info = () => {
         </div>
         {edit ? (
             <>
-                <div className="flex gap-10 [&>*]:w-1/2">
+                <div className="flex gap-10 [&>*]:w-1/2 my-3">
                     <SelectInput form={form} name="jobTitle" {...select[0]} />
                     <SelectInput form={form} name="company" {...select[1]} />
                 </div>
-                <SelectInput form={form} name="location" {...select[2]} />
+                <div className="flex gap-10 [&>*]:w-1/2 my-3">
+                    <SelectInput form={form} name="location" {...select[2]} />
+                    <NumberInput
+                        name="totalExp"
+                        {...form.getInputProps("totalExp")}
+                        label="Experience"
+                        hideControls
+                        clampBehavior="strict"
+                        min={1}
+                        max={50}
+                        withAsterisk
+                        
+                        
+                    />
+
+                </div>
+
             </>
         ) : (
             <>
@@ -70,6 +87,10 @@ const Info = () => {
                 <div className="flex gap-1 text-lg text-mine-shaft-300 items-center">
                     <IconMapPin className="h-5 w-5" stroke={1.5} />
                     {profile.location}
+                </div>
+                <div className="flex gap-1 text-lg text-mine-shaft-300 items-center">
+                    <IconBuildingSkyscraper className="h-5 w-5" stroke={1.5} />
+                    Experience: {profile.totalExp} Years
                 </div>
             </>
         )}

@@ -1,5 +1,5 @@
 import { Button, Divider } from "@mantine/core";
-import { IconBriefcase, IconMapPin } from "@tabler/icons-react";
+import { IconBriefcase, IconBuildingSkyscraper, IconMapPin } from "@tabler/icons-react";
 import ExperinceCard from "./ExperinceCard";
 import CertifyCard from "./CertifyCard";
 import { useParams } from "react-router-dom";
@@ -39,6 +39,9 @@ const Profile = (props: any) => {
             <div className="text-xl flex flex gap-1 items-center"><IconBriefcase className="h-5 w-5 " stroke={1.5} />{profile?.jobTitle} &bull; {profile?.company}</div>
             <div className=" flex gap-1 text-lg test-mine-shaft-300 items-center">
                 <IconMapPin className="h-5 w-5 " stroke={1.5} />{profile?.location}
+            </div>
+            <div className=" flex gap-1 text-lg test-mine-shaft-300 items-center">
+                <IconBuildingSkyscraper className="h-5 w-5 " stroke={1.5} />Experience: {profile?.totalExp} Yers
             </div>
         </div>
         <Divider mx="xs" my="xl" />
