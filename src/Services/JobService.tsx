@@ -1,7 +1,4 @@
 import axios from "axios";
-import { error } from "console";
-import { Id } from "tabler-icons-react";
-
 const base_url="http://localhost:8080/jobs/"
 
 const postJob=async (job:any)=>{
