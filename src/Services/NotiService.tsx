@@ -1,10 +1,9 @@
-import axios from "axios";
+import axiosInstance from "../Interceptor/AxiosInterceptor";
 
-const base_url = "http://localhost:8080/notification/";
 
 const getNotifications = async (id: any) => {
-  return axios
-    .get(`${base_url}get/${id}`)
+  return axiosInstance
+    .get(`/notification/get/${id}`)
     .then((res) => res.data)
     .catch((error) => {
       throw error;
@@ -12,8 +11,8 @@ const getNotifications = async (id: any) => {
 };
 
 const readNotifications = async (id: any) => {
-  return axios
-    .put(`${base_url}read/${id}`)   // ✅ corrected endpoint
+  return axiosInstance
+    .put(`/notification/read/${id}`)   // ✅ corrected endpoint
     .then((res) => res.data)
     .catch((error) => {
       throw error;
