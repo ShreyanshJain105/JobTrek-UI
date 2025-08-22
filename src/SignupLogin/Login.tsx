@@ -20,9 +20,10 @@ import {
   errorNotification,
   successNotification,
 } from "../Services/NotificationService";
-import { setJwt } from "../Slices/JwtSlice";
-import { jwtDecode } from "jwt-decode";
 import { loginUser } from "../Services/AuthService";
+
+import { jwtDecode } from "jwt-decode";
+import { setJwt } from "../Slices/JwtSlice";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
