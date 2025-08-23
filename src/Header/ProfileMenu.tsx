@@ -1,11 +1,6 @@
-import { Menu, Button, Text, Avatar, Switch } from '@mantine/core';
+import { Menu, Avatar, Switch } from '@mantine/core';
 import {
-    IconSettings,
-    IconSearch,
-    IconPhoto,
     IconMessageCircle,
-    IconTrash,
-    IconArrowsLeftRight,
     IconUserCircle,
     IconFileText,
     IconMoon,
@@ -15,36 +10,46 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { removeUser } from '../Slices/UserSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import { removeUser } from '../Slices/UserSlice';   // ✅ IMPORT jwt slice
+import { removeJwt } from '../Slices/JwtSlice';
 
 const ProfileMenu = () => {
-    const dispatch=useDispatch();
-    const user=useSelector((state:any)=>state.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();  // ✅ redirect after logout
+    const user = useSelector((state: any) => state.user);
     const profile = useSelector((state: any) => state.profile);
-  
-    const handleLogout=()=>{
-        dispatch(removeUser());
-    }
+
+    const handleLogout = () => {
+        dispatch(removeUser());   // clears redux user
+        dispatch(removeJwt());    // ✅ clears token from localStorage
+        navigate("/login");       // ✅ redirect to login
+    };
+
     const [checked, setChecked] = useState(false);
-     const [opened, setOpened] = useState(false);
+    const [opened, setOpened] = useState(false);
+
     return (
-        <Menu  opened={opened} onChange={setOpened} shadow="md" width={200}>
+        <Menu opened={opened} onChange={setOpened} shadow="md" width={200}>
             <Menu.Target>
-                <div className='flex  cursor-pointer gap-3 items-center'>
+                <div className='flex cursor-pointer gap-3 items-center'>
                     <div className='flex gap-2 items-center'>
                         <div>{user.name}</div>
-                        <Avatar src={profile.picture?
-                            `data:image/jpeg;base64,${profile.picture}`:"/Avatar.png"} alt="it's me " />
+                        <Avatar
+                            src={profile.picture
+                                ? `data:image/jpeg;base64,${profile.picture}`
+                                : "/Avatar.png"}
+                            alt="it's me "
+                        />
                     </div>
                 </div>
             </Menu.Target>
 
-            <Menu.Dropdown onChange={()=>setOpened(true)}>
+            <Menu.Dropdown onChange={() => setOpened(true)}>
                 <Link to="/profile">
-                <Menu.Item leftSection={<IconUserCircle size={14} />}>
-                    Profile
-                </Menu.Item>
+                    <Menu.Item leftSection={<IconUserCircle size={14} />}>
+                        Profile
+                    </Menu.Item>
                 </Link>
                 <Menu.Item leftSection={<IconMessageCircle size={14} />}>
                     Messages
@@ -59,9 +64,23 @@ const ProfileMenu = () => {
                             size="md"
                             color="yellow"
                             checked={checked}
-                            onChange={(event) => setChecked(event.currentTarget.checked)}
-                            onLabel={<IconSun size={16} stroke={2.5} color="var(--mantine-color-yellow-4)" />}
-                            offLabel={<IconMoonStars size={16} stroke={2.5} color="cyan" />}
+                            onChange={(event) =>
+                                setChecked(event.currentTarget.checked)
+                            }
+                            onLabel={
+                                <IconSun
+                                    size={16}
+                                    stroke={2.5}
+                                    color="var(--mantine-color-yellow-4)"
+                                />
+                            }
+                            offLabel={
+                                <IconMoonStars
+                                    size={16}
+                                    stroke={2.5}
+                                    color="cyan"
+                                />
+                            }
                         />
                     }
                 >
@@ -69,7 +88,8 @@ const ProfileMenu = () => {
                 </Menu.Item>
 
                 <Menu.Divider />
-                <Menu.Item onClick={handleLogout}
+                <Menu.Item
+                    onClick={handleLogout}
                     color="red"
                     leftSection={<IconLogout2 size={14} />}
                 >
@@ -78,5 +98,6 @@ const ProfileMenu = () => {
             </Menu.Dropdown>
         </Menu>
     );
-}
+};
+
 export default ProfileMenu;

@@ -7,11 +7,11 @@ const jwtSlice=createSlice({
     reducers:{
         setJwt:(state,action)=>{
             localStorage.setItem("token",action.payload);
-            return action.payload;
+            return action.payload;   // ✅ returns a string
         },
         removeJwt:(state)=>{
             localStorage.removeItem("token");
-            return "";
+            return "";               // ✅ must return empty string, not undefined
         }
     }
 });

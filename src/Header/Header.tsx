@@ -14,24 +14,26 @@ import { setProfile } from "../Slices/ProfileSlice";
 import NotificationMenu from "./NotificationMenu";
 import { setUser } from "../Slices/UserSlice";
 import { jwtDecode } from "jwt-decode";
+import { setupResponseInterceptor } from "../Interceptor/AxiosInterceptor";
 
 const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state: any) => state.user);
+  const token = useSelector((state:any)=>state.jwt);
   const navigate = useNavigate();
   useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    try {
+    setupResponseInterceptor(navigate);
+  
+  
+}, [navigate]);
+
+useEffect(()=>{
+   if (token) {
       const decoded: any = jwtDecode(token);
       dispatch(setUser({ ...decoded, email: decoded.sub }));
-    } catch (err) {
-      console.error("Invalid token", err);
-      localStorage.removeItem("token");
-    }
   }
-}, [dispatch]);
+},[token, navigate])
 
 useEffect(() => {
   if (user?.profileId) { // ✅ only fetch when user is available
