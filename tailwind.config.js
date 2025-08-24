@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -5,8 +6,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-         colors: {
-          'mine-shaft': {
+      colors: {
+        'mine-shaft': {
           '50': '#f6f6f6',
           '100': '#e7e7e7',
           '200': '#d1d1d1',
@@ -19,21 +20,48 @@ module.exports = {
           '900': '#3d3d3d',
           '950': '#2d2d2d',
         },
-          'bright-sun': {
-            '50': '#fffbeb',
-            '100': '#fff3c6',
-            '200': '#ffe588',
-            '300': '#ffd149',
-            '400': '#ffbd20',
-            '500': '#f99b07',
-            '600': '#dd7302',
-            '700': '#b75006',
-            '800': '#943c0c',
-            '900': '#7a330d',
-            '950': '#461902',
-          },
+        'bright-sun': {
+          '50': '#fffbeb',
+          '100': '#fff3c6',
+          '200': '#ffe588',
+          '300': '#ffd149',
+          '400': '#ffbd20',
+          '500': '#f99b07',
+          '600': '#dd7302',
+          '700': '#b75006',
+          '800': '#943c0c',
+          '900': '#7a330d',
+          '950': '#461902',
+        },
+      },
 
-  },
+      keyframes: {
+        // you can define your keyframes here
+      },
+      animation: {
+        'option-animation': 'option-animation 200ms ease forwards',
+      },
+
+      screens: {
+        'xsm': "350px",   // 👈 custom breakpoint
+        'xs': "476px",    // 👈 custom breakpoint
+        'sm': "640px",
+        'md': "768px",
+        'bs': '900px',
+        'lg': "1024px",
+        'xl': "1280px",
+        '2xl': "1536px",
+
+        // ✅ Max-width breakpoints
+        '2xl-mx': { 'max': "1535px" },
+        'xl-mx': { 'max': "1279px" },
+        'lg-mx': { 'max': "1023px" },
+        'bs-mx': { 'max': "899px" },
+        'md-mx': { 'max': "767px" },
+        'sm-mx': { 'max': "639px" },
+        'xs-mx': { 'max': "475px" },
+        'xsm-mx': { 'max': "349px" },
+      },
     },
   },
   plugins: [],

@@ -34,7 +34,7 @@ const ProfileMenu = () => {
             <Menu.Target>
                 <div className='flex cursor-pointer gap-3 items-center'>
                     <div className='flex gap-2 items-center'>
-                        <div>{user.name}</div>
+                        <div className='xs-mx:hidden'>{user.name}</div>
                         <Avatar
                             src={profile.picture
                                 ? `data:image/jpeg;base64,${profile.picture}`
