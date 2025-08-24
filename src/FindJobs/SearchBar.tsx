@@ -27,13 +27,14 @@ variant="outline" autoContrast color="brightSun.4">{opened?"Close":"Filters"}
     <div className="flex px-5 lg-mx:!flex-wrap py-8 items-center !text-mine-shaft-100">
       {dropdownData.map((item, index) => (
         <>
-          <div key={index} className="w-1/5 lg-mx:w-1/4 bs-mx:w-[30%] sm-mx:w-[48%]">
+          <div key={index} className="w-1/5 lg-mx:w-1/4 bs-mx:w-[30%] 
+          sm-mx:w-[48%] xs-mx:w-full xs-mx:mb-1 ">
             <MultiInput {...item} />
           </div>
           <Divider className="sm-mx:hidden" size="xs" mr="xs" orientation="vertical" />
         </>
       ))}
-      <div className="w-1/5 lg-mx:w-1/4 lg-mx:mt-7 bs-mx:w-[30%] sm-mx:w-[48%] [&_.mantine-Slider-label]:!translate-y-10">
+      <div className="w-1/5 lg-mx:w-1/4 lg-mx:mt-7 bs-mx:w-[30%] sm-mx:w-[48%] [&_.mantine-Slider-label]:!translate-y-10 xs-mx:mb-1 ">
         <div className="flex text-sm justify-between">
           <div>Salary</div>
           <div>

@@ -22,7 +22,7 @@ const ApplyJobPage=()=>{
         <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
            
                 <Button my="md" leftSection={<IconArrowLeft size={20}/> } 
-                color="brightSun.4" variant="light" onClick={()=>navigate(-1)}
+                color="brightSun.4" mb="xs" variant="light" onClick={()=>navigate(-1)}
                 >Back</Button>
             
             <ApplyJobComp {...job}/>

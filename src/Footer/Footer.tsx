@@ -79,7 +79,6 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      {/* Bottom Section */}
       <div className="mt-12 pt-8 border-t border-mine-shaft-800">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mine-shaft-400">
           <div className="px-2">

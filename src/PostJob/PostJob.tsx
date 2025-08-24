@@ -9,6 +9,7 @@ import { errorNotification, successNotification } from "../Services/Notification
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 
 const PostJob = () => {
     const { id } = useParams();
@@ -16,6 +17,7 @@ const PostJob = () => {
     const user = useSelector((state: any) => state.user);
     const navigate = useNavigate();
     const select = fields;
+    // const matches = useMediaQuery('(min-width: 350px)')
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -82,22 +84,22 @@ const PostJob = () => {
             })
 
     }
-    return <div className="w-4/5 mx-auto">
+    return <div className="px-16 py-5 bs-mx:px-10 md-md:px-5">
         <div className="text-2xl font-semibold mb-5">Post a Job </div>
         <div className="flex flex-col gap-5 ">
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 md-mx:gap-5 sm-mx:[&>*]:!w-full sm-mx:flex-wrap">
                 <SelectInput form={form} name="jobTitle" {...select[0]} />
                 <SelectInput form={form} name="company" {...select[1]} />
             </div>
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 md-mx:gap-5 sm-mx:[&>*]:!w-full sm-mx:flex-wrap ">
                 <SelectInput form={form} name="experience" {...select[2]} />
                 <SelectInput form={form} name="jobType" {...select[3]} />
             </div>
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 [&>*]:w-1/2 md-mx:gap-5 sm-mx:[&>*]:!w-full sm-mx:flex-wrap">
                 <SelectInput form={form} name="location" {...select[4]} />
                 <NumberInput {...form.getInputProps('packageOffered')} label="Salary in LPA" placeholder="Enter Salary" min={1} max={300} clampBehavior="strict" hideControls withAsterisk />
             </div>
-            <TagsInput withAsterisk {...form.getInputProps('skillsRequired')} label="Skills" placeholder="Enter Skills"
+            <TagsInput withAsterisk {...form.getInputProps('skillsRequired')} label="Skills" placeholder="Enter Skills "
                 clearable acceptValueOnBlur splitChars={[',', ' ', '|']} />
 
             <Textarea {...form.getInputProps('about')} withAsterisk className="my-3"
