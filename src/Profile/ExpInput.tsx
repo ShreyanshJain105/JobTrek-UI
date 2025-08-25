@@ -70,9 +70,9 @@ const ExpInput = (props: any) => {
         successNotification("Changes Saved", `Experience ${props.add ? "Added" : "Updated"} successfully`);
     };
 
-    return <div className="flex flex-col gap-3">
+    return <div className="flex flex-col gap-3 [&>*]:w-1/2 my-3 xs-mx:[&>*]:w-full xs-mx:flex-wrap md-mx:gap-5">
         <div className="text-lg font-semibold">{props.add ? "Add" : "Edit"} Experience</div>
-        <div className="flex gap-10 [&>*]:w-1/2">
+        <div className="flex gap-10 [&>*]:w-1/2 my-3 xs-mx:[&>*]:w-full xs-mx:flex-wrap md-mx:gap-5">
             <SelectInput form={form} name="title" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
         </div>

@@ -4,11 +4,13 @@ import { useState } from "react";
 import ExperinceCard from "./ExperinceCard";
 import ExpInput from "./ExpInput";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Experience = () => {
     const profile = useSelector((state: any) => state.profile);
     const [edit, setEdit] = useState(false);
     const [addExp, setAddExp] = useState(false);
+     const matches = useMediaQuery('(min-width: 475px)')
     const handleClick = () => {
         setEdit(!edit);
     }
