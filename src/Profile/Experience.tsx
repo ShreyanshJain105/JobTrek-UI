@@ -10,18 +10,18 @@ const Experience = () => {
     const profile = useSelector((state: any) => state.profile);
     const [edit, setEdit] = useState(false);
     const [addExp, setAddExp] = useState(false);
-     const matches = useMediaQuery('(min-width: 475px)')
+     const matches = useMediaQuery('(max-width: 475px)')
     const handleClick = () => {
         setEdit(!edit);
     }
     return <div className="px-3 ">
         <div className="text-2xl font-semibold mb-5 flex justify-between">Experience
             <div className="flex gap-2">
-                <ActionIcon onClick={() => setAddExp(true)} size="lg" color="brightSun.4" variant="subtle" >
+                <ActionIcon onClick={() => setAddExp(true)} size={matches?"md":"lg"} color="brightSun.4" variant="subtle" >
                     <IconPlus className="h-4/5 w-4/5" />
                 </ActionIcon>
 
-                <ActionIcon onClick={handleClick} size="lg" color={edit ? "red.8" : "brightSun.4"} variant="subtle"  >
+                <ActionIcon onClick={handleClick} size={matches?"md":"lg"} color={edit ? "red.8" : "brightSun.4"} variant="subtle"  >
                     {edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
                 </ActionIcon></div></div>
         <div className="flex flex-col gap-8">

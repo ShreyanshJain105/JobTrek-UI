@@ -9,7 +9,7 @@ import { useMediaQuery } from "@mantine/hooks";
 const Certificate = () => {
     const profile = useSelector((state:any)=>state.profile);
     const [edit,setEdit]=useState(false);
-    const matches = useMediaQuery('(min-width: 475px)')
+    const matches = useMediaQuery('(max-width: 475px)')
     const [addCerti, setAddCerti] = useState(false);
 
     const handleClick=()=>{

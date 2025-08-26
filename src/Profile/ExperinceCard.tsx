@@ -33,7 +33,7 @@ const ExperinceCard=(props:any)=>{
                 {formatDate(props.startDate)} - {props.working?"Present":formatDate(props.endDate)} 
             </div>
         </div>
-        <div className="text-sm text-mine-shaft-300 text-justify">
+        <div className="text-sm xs-ms:text-xs text-mine-shaft-300 text-justify">
             {props.description}
         </div>
        {props.edit &&<div className="flex gap-5 ">

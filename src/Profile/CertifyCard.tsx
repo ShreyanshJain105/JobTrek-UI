@@ -4,10 +4,12 @@ import { formatDate } from "../Services/Utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../Slices/ProfileSlice";
 import { successNotification } from "../Services/NotificationService";
+import { useMediaQuery } from "@mantine/hooks";
 
 const CertifyCard = (props: any) => {
      const dispatch=useDispatch();
     const profile = useSelector((state:any)=>state.profile);
+     const matches = useMediaQuery('(max-width: 475px)')
     const handledelete=()=>{
         let certi=[...profile.certifications];
         certi.splice(props.index,1);
@@ -30,7 +32,7 @@ const CertifyCard = (props: any) => {
                 <div className="text-sm text-mine-shaft-300 xs-mx:text-xs">{formatDate(props.issueDate)} </div>
                 <div className="text-sm text-mine-shaft-300  xs-mx:text-xs">{props.certificateId}</div>
             </div>
-            {props.edit && <ActionIcon size="lg" color="red.4" variant="subtle">  
+            {props.edit && <ActionIcon size={matches?"md":"lg"} color="red.4" variant="subtle">  
                 <IconTrash onClick={handledelete} className="h-4/5 w-4/5" stroke={1.5} />
             </ActionIcon>}
         </div>
