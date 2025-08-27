@@ -5,7 +5,7 @@ const PostedJobCard = (props: any) => {
   return (
     <Link
       to={`/posted-jobs/${props.id}`}
-      className={`rounded-xl p-2 border-l-2 hover:bg-opacity-80 cursor-pointer border-l-bright-sun-400
+      className={`rounded-xl p-2 w-52 lg-mx:w-48 bs-mx:w-44 border-l-2 hover:bg-opacity-80 cursor-pointer border-l-bright-sun-400
         ${props.id === props.selectedId
           ? "bg-bright-sun-400 text-black"
           : "bg-mine-shaft-900 text-mine-shaft-300"}`}
