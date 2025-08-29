@@ -43,10 +43,12 @@ const Profile = () => {
         />
         <div
           ref={ref}
-          className="absolute flex items-center justify-center -bottom-1/3   md-mx:bottom-10 sm-mx:bottom-16 left-3"
+          // className="absolute flex items-center justify-center  md-mx:bottom-10 sm-mx:bottom-16 left-6 !rounded-full -bottom-1/3 "
+           className=" w-48 h-48 -bottom-1/3 absolute left-6 items-center justify-center flex "
+         
         >
           <Avatar
-            className="!w-48 !h-48 md-mx:!w-40 md-mx:!h-40 left-6  border-mine-shaft-950 border-8 rounded-full sm-mx:!w-36 sm-mx:!h-36
+            className="!w-48 !h-48 md-mx:!w-40 md-mx:!h-40 border-mine-shaft-950 border-8 rounded-full sm-mx:!w-36 sm-mx:!h-36
                     xs-mx:!w-32 xs-mx:!w-32"
             src={
               profile.picture

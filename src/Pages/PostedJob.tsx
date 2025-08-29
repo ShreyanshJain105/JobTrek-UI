@@ -8,18 +8,17 @@ import { Button, Drawer } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 const PostedJob = () => {
-  const { id } = useParams();                    // id is string | undefined
-  const jobId = Number(id ?? 0);                 // normalize to number
+  const { id } = useParams(); // id is string | undefined
+  const jobId = Number(id ?? 0); // normalize to number
   const user = useSelector((state: any) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
   const [jobList, setJobList] = useState<any[]>([]);
   const [job, setJob] = useState<any>({});
   const navigate = useNavigate();
-  const matches = useMediaQuery('(max-width:475px)');
-  
+  const matches = useMediaQuery("(max-width:767px)");
 
   useEffect(() => {
-    if (!user?.id) return;                       // wait for user to be available
+    if (!user?.id) return; // wait for user to be available
     window.scrollTo(0, 0);
 
     getJobPostedBy(user.id)
@@ -44,15 +43,26 @@ const PostedJob = () => {
   }, [jobId, user?.id, navigate]);
 
   return (
-    <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] px-4">
-      <Button my="xs" autoContrast size="sm" variant="default" onClick={open}>
-        All Jobs
-      </Button>
-      <Drawer opened={opened} onClose={close} title="Authentication">
+    <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] px-5">
+      {/* ✅ Correct conditional rendering */}
+      {matches && (
+        <Button
+          my="xs"
+          autoContrast
+          size="sm"
+          variant="default"
+          onClick={open}
+        >
+          All Jobs
+        </Button>
+      )}
+
+      <Drawer opened={opened} size={250} overlayProps={{backgroundOpacity:0.5,blur:4}} onClose={close} title="All Jobs ">
         <PostedJobb job={job} jobList={jobList} />
       </Drawer>
+
       <div className="flex gap-5 justify-around py-5">
-        <PostedJobb job={job} jobList={jobList} />
+        {!matches && <PostedJobb job={job} jobList={jobList} />}
         <PostedJobDescription {...job} />
       </div>
     </div>

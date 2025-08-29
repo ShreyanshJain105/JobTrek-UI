@@ -131,7 +131,11 @@ const JobDesc = (props: any) => {
                     <Button color="brightSun.4" variant="light" >Company Page </Button>
                 </Link>
             </div>
-            <div className="text-mine-shaft-300 text-justify xs-mx:text-sm ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem, ex!</div>
+            <div className="text-mine-shaft-300 text-justify xs-mx:text-sm ">We are a forward-thinking organization committed to delivering innovative solutions, exceptional value, and long-term impact. Guided by a customer-first approach, we combine expertise, technology, and creativity to meet evolving needs across industries.
+
+With a focus on quality, reliability, and continuous growth, we empower businesses and individuals to achieve their goals. Our culture is built on integrity, collaboration, and innovation, driving us to adapt in an ever-changing global environment.
+
+Whether in technology, services, or products, our mission is simple: to create meaningful solutions that make life easier, smarter, and more connected. We believe in shaping the future with sustainable practices, strong partnerships, and a dedication to excellence.</div>
         </div>
     </div>
 }

@@ -10,7 +10,8 @@ const Card = (props: any) => {
     const dispatch=useDispatch();
     const profile = useSelector((state: any) => state.profile);
     const handleSaveJob = () => {
-    // Ensure savedJobs is always an array, defaulting to empty array if undefined/null
+   
+ // Ensure savedJobs is always an array, defaulting to empty array if undefined/null
     let savedJobs: any = profile.savedJobs ? [...profile.savedJobs] : [];
     
     if (savedJobs.includes(props.id)) {
@@ -21,6 +22,7 @@ const Card = (props: any) => {
     let updateProfile = { ...profile, savedJobs: savedJobs };
         dispatch(changeProfile(updateProfile));
 }
+
     
     return <div className="bg-mine-shaft-900 p-4 w-72 flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_yellow] !shadow-bright-sun-400 ">
         <div className="flex justify-between">
@@ -66,7 +68,7 @@ const Card = (props: any) => {
         }
         {
             props.interviewing && <div className="flex gap-1 text-sm items-center">
-                <IconCalendarMonth className="text-bright-sun-400 w-5 h-5" stroke={1.5} />Sun, 25 Auguest &bull; <span className="text-mine-shaft-400">10:00 Am</span>
+                <IconCalendarMonth className="text-bright-sun-400 w-5 h-5" stroke={1.5} />{props.interviewTime} &bull; <span className="text-mine-shaft-400"></span>
             </div>}
         <Link to={`/jobs/${props.id}`}>
             <Button
