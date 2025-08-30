@@ -2,7 +2,8 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { error } from "console";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  // baseURL: "http://localhost:8080",
+  baseURL: "https://jobtrek-backend.onrender.com",
 });
 
 axiosInstance.interceptors.request.use(
