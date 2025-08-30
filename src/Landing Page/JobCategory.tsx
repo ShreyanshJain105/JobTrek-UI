@@ -47,7 +47,7 @@ const JobCategory = () => {
                 ))} */}
                 {jobcategory.map((category, index) => (
     <Carousel.Slide key={category.name || index}>   {/* ✅ Added key here */}
-        <div className="flex flex-col items-center w-64  gap-2 border border-bright-sun-400
+        <div className="flex flex-col items-center w-64 sm-mx:w-56 xs-mx:w-48 gap-2 border border-bright-sun-400
        p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] my-5 transition duration-300 ease-in-out00 !shadow-bright-sun-300">
             <div className="p-2 bg-bright-sun-300 rounded-full">
                 <img 

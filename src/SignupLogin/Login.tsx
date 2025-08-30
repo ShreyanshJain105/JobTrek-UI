@@ -82,7 +82,7 @@ const Login = () => {
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
-      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+      <div className="w-1/2 sm-mx:w-full sm-mx:p-10 bs-mx:px-10 md-mx:px-5 px-20 flex flex-col justify-center gap-3">
         <div className="text-2xl font-semibold">Login Account</div>
         <TextInput
           leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}

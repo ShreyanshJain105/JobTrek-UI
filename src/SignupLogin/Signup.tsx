@@ -94,7 +94,7 @@ const Signup = () => {
               overlayProps={{ radius: 'sm', blur: 2 }}
               loaderProps={{ color: 'brightSun.4', type: 'bars' }}
             />
-            <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+            <div className="w-1/2 sm-mx:py-20 sm-mx:w-full bs-mx:px-10 md-mx:px-5  px-20 flex flex-col justify-center gap-3">
         <div className="text-2xl font-semibold">Create Account</div>
         <TextInput value={data.name} onChange={handleChange} name="name"
             label="Full Name"
@@ -119,8 +119,8 @@ const Signup = () => {
         withAsterisk
     >
         <Group mt="xs">
-      <Radio className="py-4 px-6 has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 border border-mine-shaft-800 rounded-lg " autoContrast value="APPLICANT" label="APPLICANT" />
-      <Radio className="py-4 px-6 has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 border border-mine-shaft-800 rounded-lg " autoContrast value="EMPLOYER" label="EMPLOYER" />
+      <Radio className="py-4 sm-mx:px-4 sm-mx:py-2 px-6 has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 border border-mine-shaft-800 rounded-lg " autoContrast value="APPLICANT" label="APPLICANT" />
+      <Radio className="py-4 sm-mx:px-4 sm-mx:py-2 px-6 has-[:checked]:border-bright-sun-400 has-[:checked]:bg-bright-sun-400/5 border border-mine-shaft-800 rounded-lg " autoContrast value="EMPLOYER" label="EMPLOYER" />
       </Group>
     </Radio.Group>
         <Checkbox autoContrast label={<>I accept {''}<Anchor>Terms & Conditions</Anchor></>}/>

@@ -85,18 +85,8 @@ const Header = () => {
 
       {/* Right Side Actions */}
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        {/* Profile with Name - Always visible when user is logged in */}
-        {user && (
-          <div className="flex items-center gap-2">
-            {/* Show name only on larger screens */}
-            <div className="hidden lg:block text-sm text-mine-shaft-200">
-              <span className="text-bright-sun-400 font-semibold">
-                {profile?.name || user?.name || 'User'}
-              </span>
-            </div>
-            <ProfileMenu />
-          </div>
-        )}
+        {/* Profile - Always visible when user is logged in */}
+        {user && <ProfileMenu />}
 
         {/* Notifications - Always visible when user is logged in */}
         {user && <NotificationMenu />}

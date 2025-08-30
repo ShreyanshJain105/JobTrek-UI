@@ -12,7 +12,7 @@ const Footer = () => {
   const location = useLocation();
 
   return location.pathname !== "/signup" && location.pathname !== "/login" ? (
-    <div className="pt-20 pb-5 bg-mine-shaft-950 font-['poppins']">
+    <div className="pt-20 pb-5 p-5 bg-mine-shaft-950 font-['poppins']">
       <div className="flex flex-wrap gap-8 lg:gap-12 ">
         {/* Brand Section */}
         <div className="w-full lg:w-1/4 flex flex-col gap-4">
@@ -82,7 +82,8 @@ const Footer = () => {
       <div className="mt-12 pt-8 border-t border-mine-shaft-800">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mine-shaft-400">
           <div className="px-2">
-            © 2025 JobTrek. All rights reserved. | Developed by{" "}
+            © 2025 JobTrek. All rights reserved. <br/>
+            | Developed by{" "}
             <span className="text-bright-sun-400 font-medium">
               Shreyansh Jain
             </span>

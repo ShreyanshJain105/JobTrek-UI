@@ -80,7 +80,7 @@ const jobcategory = [
 const testimonials = [
   
   {
-    "name": "Abhishek Kullu",
+    "name": "Archit Gupta",
     "testimonial": "Found my dream job within a week! The application process was smooth and hassle-free.",
     "rating": 5
   },
@@ -95,7 +95,7 @@ const testimonials = [
     "rating": 5
   },
   {
-    "name": "Sneha Gupta",
+    "name": "Sneha Jain",
     "testimonial": "Best job portal I've used so far. The search filters are very helpful in finding relevant jobs.",
     "rating": 4
   }
