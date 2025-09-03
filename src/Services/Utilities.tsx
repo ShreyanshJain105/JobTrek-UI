@@ -73,4 +73,37 @@ function openBase64File(base64String:string, fileType = "application/pdf") {
   window.open(blobUrl, "_blank");
 }
 
-export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64File};
+
+function timeAgoOrFromNow(time: string) {
+  const now = new Date();
+  const date = new Date(time);
+  const diff = date.getTime() - now.getTime(); // positive if in future
+  const absDiff = Math.abs(diff);
+
+  const seconds = Math.floor(absDiff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  const unit = (value: number, name: string) =>
+    `${value} ${name}${value !== 1 ? "s" : ""}`;
+
+  let result =
+    seconds < 60
+      ? unit(seconds, "second")
+      : minutes < 60
+      ? unit(minutes, "minute")
+      : hours < 24
+      ? unit(hours, "hour")
+      : days < 30
+      ? unit(days, "day")
+      : months < 12
+      ? unit(months, "month")
+      : unit(years, "year");
+
+  return diff >= 0 ? `in ${result}` : `${result} ago`;
+}
+
+export {formatDate,timeAgo,getBase64,formatInterviewTime,openBase64File,timeAgoOrFromNow};
