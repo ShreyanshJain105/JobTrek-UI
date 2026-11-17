@@ -82,7 +82,7 @@ const Footer = () => {
       <div className="mt-12 pt-8 border-t border-mine-shaft-800">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mine-shaft-400">
           <div className="px-2">
-            © 2025 JobTrek. All rights reserved. <br/>
+            © 2026 JobTrek. All rights reserved. <br/>
             | Developed by{" "}
             <span className="text-bright-sun-400 font-medium">
               Shreyansh Jain
