@@ -16,7 +16,12 @@ const getAllProfiles=async ()=>{
     return axiosInstance.get(`/profiles/getAll`)
     .then(result=>result.data)
     .catch(error=>{throw error;});
-
 }
 
-export {getProfile,updateProfile,getAllProfiles};
+const deleteProfile = async (id: any) => {
+    return axiosInstance.delete(`/profiles/delete/${id}`)
+        .then(result => result.data)
+        .catch(error => { throw error; });
+}
+
+export { getProfile, updateProfile, getAllProfiles, deleteProfile };

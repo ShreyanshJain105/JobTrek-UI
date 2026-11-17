@@ -26,7 +26,8 @@ import {
     IconRefresh, 
     IconEye,
     IconCurrencyDollar,
-    IconMapPin
+    IconMapPin,
+    IconId
 } from "@tabler/icons-react";
 import { 
     getAllUsers, 
@@ -35,6 +36,7 @@ import {
     adminDeleteUser 
 } from "../Services/UserService";
 import { getAllJobs, postJob, deleteJob } from "../Services/JobService";
+import { getAllProfiles, deleteProfile } from "../Services/ProfileService";
 import { successNotification, errorNotification } from "../Services/NotificationService";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../Services/Utilities";
@@ -42,14 +44,16 @@ import { timeAgo } from "../Services/Utilities";
 const AdminPage = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [jobs, setJobs] = useState<any[]>([]);
+    const [profiles, setProfiles] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<"users" | "jobs">("users");
+    const [activeTab, setActiveTab] = useState<"users" | "jobs" | "profiles">("users");
 
     // Search & Filter State
     const [userSearch, setUserSearch] = useState("");
     const [userRoleFilter, setUserRoleFilter] = useState("ALL");
     const [jobSearch, setJobSearch] = useState("");
     const [jobStatusFilter, setJobStatusFilter] = useState("ALL");
+    const [profileSearch, setProfileSearch] = useState("");
 
     // Add User Modal State
     const [addModalOpened, { open: openAddModal, close: closeAddModal }] = useDisclosure(false);
@@ -67,18 +71,20 @@ const AdminPage = () => {
 
     // Delete Confirmation Modal State
     const [deleteModalOpened, { open: openDeleteModal, close: closeDeleteModal }] = useDisclosure(false);
-    const [targetDelete, setTargetDelete] = useState<{ type: "user" | "job"; id: any; name: string } | null>(null);
+    const [targetDelete, setTargetDelete] = useState<{ type: "user" | "job" | "profile"; id: any; name: string } | null>(null);
 
     // Load Data
     const loadAllData = async () => {
         setLoading(true);
         try {
-            const [usersRes, jobsRes] = await Promise.all([
+            const [usersRes, jobsRes, profilesRes] = await Promise.all([
                 getAllUsers(),
-                getAllJobs()
+                getAllJobs(),
+                getAllProfiles()
             ]);
             setUsers(usersRes || []);
             setJobs(jobsRes || []);
+            setProfiles(profilesRes || []);
         } catch (err: any) {
             console.error("Admin load error:", err);
             errorNotification("Data Load Failed", "Unable to retrieve platform administrative data.");
@@ -114,6 +120,19 @@ const AdminPage = () => {
             return matchesSearch && matchesStatus;
         });
     }, [jobs, jobSearch, jobStatusFilter]);
+
+    // Filtered Profiles
+    const filteredProfiles = useMemo(() => {
+        return profiles.filter((p) => {
+            const matchesSearch = 
+                (p.name || "").toLowerCase().includes(profileSearch.toLowerCase()) ||
+                (p.email || "").toLowerCase().includes(profileSearch.toLowerCase()) ||
+                (p.jobTitle || "").toLowerCase().includes(profileSearch.toLowerCase()) ||
+                (p.company || "").toLowerCase().includes(profileSearch.toLowerCase()) ||
+                (p.skills || []).some((s: string) => s.toLowerCase().includes(profileSearch.toLowerCase()));
+            return matchesSearch;
+        });
+    }, [profiles, profileSearch]);
 
     // Handle Create User
     const handleCreateUser = async () => {
@@ -163,7 +182,10 @@ const AdminPage = () => {
         try {
             if (targetDelete.type === "user") {
                 await adminDeleteUser(targetDelete.id);
-                successNotification("Account Removed", `User ${targetDelete.name} was removed from the system.`);
+                successNotification("Account Removed", `User ${targetDelete.name} and associated profile/jobs were removed.`);
+            } else if (targetDelete.type === "profile") {
+                await deleteProfile(targetDelete.id);
+                successNotification("Profile Deleted", `Talent profile ${targetDelete.name} was permanently removed.`);
             } else {
                 await deleteJob(targetDelete.id);
                 successNotification("Job Deleted", `Job listing ${targetDelete.name} was deleted.`);
@@ -351,6 +373,19 @@ const AdminPage = () => {
                                 <IconBriefcase size={18} />
                                 <span>Platform Job Listings ({jobs.length})</span>
                             </button>
+
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab("profiles")}
+                                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                                    activeTab === "profiles"
+                                        ? "bg-teal-600 text-white shadow-md shadow-teal-600/30"
+                                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
+                                }`}
+                            >
+                                <IconId size={18} />
+                                <span>Talent Profiles ({profiles.length})</span>
+                            </button>
                         </div>
 
                         {/* Search and Filters */}
@@ -379,7 +414,7 @@ const AdminPage = () => {
                                     className="w-36"
                                 />
                             </div>
-                        ) : (
+                        ) : activeTab === "jobs" ? (
                             <div className="flex items-center gap-3 w-full sm:w-auto">
                                 <TextInput
                                     value={jobSearch}
@@ -402,6 +437,18 @@ const AdminPage = () => {
                                     radius="xl"
                                     size="sm"
                                     className="w-36"
+                                />
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-3 w-full sm:w-auto">
+                                <TextInput
+                                    value={profileSearch}
+                                    onChange={(e) => setProfileSearch(e.currentTarget.value)}
+                                    placeholder="Search candidate, email, skill..."
+                                    leftSection={<IconSearch size={16} className="text-slate-400" />}
+                                    radius="xl"
+                                    size="sm"
+                                    className="w-full sm:w-72"
                                 />
                             </div>
                         )}
@@ -615,6 +662,117 @@ const AdminPage = () => {
                                                 </Table.Td>
                                             </Table.Tr>
                                         ))
+                                    )}
+                                </Table.Tbody>
+                            </Table>
+                        </div>
+                    )}
+
+                    {/* TAB 3: TALENT PROFILES DIRECTORY TABLE */}
+                    {activeTab === "profiles" && (
+                        <div className="overflow-x-auto">
+                            <Table verticalSpacing="md" horizontalSpacing="lg" className="min-w-full">
+                                <Table.Thead className="bg-slate-100/70 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 text-xs uppercase tracking-wider font-mono">
+                                    <Table.Tr>
+                                        <Table.Th>Talent / Candidate</Table.Th>
+                                        <Table.Th>Role & Experience</Table.Th>
+                                        <Table.Th>Top Skills</Table.Th>
+                                        <Table.Th>Account Link</Table.Th>
+                                        <Table.Th className="text-right">Actions</Table.Th>
+                                    </Table.Tr>
+                                </Table.Thead>
+                                <Table.Tbody className="divide-y divide-slate-200/80 dark:divide-white/[0.06] text-sm">
+                                    {filteredProfiles.length === 0 ? (
+                                        <Table.Tr>
+                                            <Table.Td colSpan={5} className="py-12 text-center text-slate-500">
+                                                No candidate profiles found matching your query.
+                                            </Table.Td>
+                                        </Table.Tr>
+                                    ) : (
+                                        filteredProfiles.map((p) => {
+                                            const isLinked = users.some(u => u.email === p.email || u.profileId === p.id);
+                                            return (
+                                                <Table.Tr key={p.id} className="hover:bg-slate-100/50 dark:hover:bg-white/[0.02] transition-colors">
+                                                    <Table.Td>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 font-extrabold flex items-center justify-center font-display shrink-0">
+                                                                {(p.name || p.email || "P")[0].toUpperCase()}
+                                                            </div>
+                                                            <div>
+                                                                <div className="font-bold text-slate-900 dark:text-white">
+                                                                    {p.name || "Unnamed Profile"}
+                                                                </div>
+                                                                <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                                                                    {p.email}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Table.Td>
+                                                    <Table.Td>
+                                                        <div className="font-medium text-slate-800 dark:text-slate-200">
+                                                            {p.jobTitle || "Not Specified"}
+                                                        </div>
+                                                        <div className="text-xs text-slate-500 flex items-center gap-2">
+                                                            <span>{p.company || "Open to Work"}</span>
+                                                            {p.totalExp ? <span>&bull; {p.totalExp} yrs exp</span> : null}
+                                                        </div>
+                                                    </Table.Td>
+                                                    <Table.Td>
+                                                        <div className="flex flex-wrap gap-1 max-w-xs">
+                                                            {(p.skills || []).slice(0, 3).map((s: string, idx: number) => (
+                                                                <Badge key={idx} size="xs" variant="outline" color="gray" radius="sm">
+                                                                    {s}
+                                                                </Badge>
+                                                            ))}
+                                                            {(p.skills || []).length > 3 && (
+                                                                <Badge size="xs" variant="light" color="gray" radius="sm">
+                                                                    +{p.skills.length - 3}
+                                                                </Badge>
+                                                            )}
+                                                            {(!p.skills || p.skills.length === 0) && (
+                                                                <span className="text-xs text-slate-400">None added</span>
+                                                            )}
+                                                        </div>
+                                                    </Table.Td>
+                                                    <Table.Td>
+                                                        {isLinked ? (
+                                                            <Badge size="sm" variant="light" color="green" radius="md">
+                                                                Active User
+                                                            </Badge>
+                                                        ) : (
+                                                            <Badge size="sm" variant="filled" color="orange" radius="md">
+                                                                Orphaned Profile
+                                                            </Badge>
+                                                        )}
+                                                    </Table.Td>
+                                                    <Table.Td className="text-right">
+                                                        <div className="inline-flex items-center gap-1.5">
+                                                            <Tooltip label="View Talent Profile" position="top" withArrow>
+                                                                <Link to={`/talent-profile/${p.id}`}>
+                                                                    <ActionIcon variant="light" color="blue" radius="md">
+                                                                        <IconEye size={16} />
+                                                                    </ActionIcon>
+                                                                </Link>
+                                                            </Tooltip>
+
+                                                            <Tooltip label="Delete Profile Permanently" position="top" withArrow>
+                                                                <ActionIcon
+                                                                    variant="light"
+                                                                    color="red"
+                                                                    radius="md"
+                                                                    onClick={() => {
+                                                                        setTargetDelete({ type: "profile", id: p.id, name: p.name || p.email });
+                                                                        openDeleteModal();
+                                                                    }}
+                                                                >
+                                                                    <IconTrash size={16} />
+                                                                </ActionIcon>
+                                                            </Tooltip>
+                                                        </div>
+                                                    </Table.Td>
+                                                </Table.Tr>
+                                            );
+                                        })
                                     )}
                                 </Table.Tbody>
                             </Table>
