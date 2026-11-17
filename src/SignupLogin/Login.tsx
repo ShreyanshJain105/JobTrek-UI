@@ -1,5 +1,4 @@
 import {
-    LoadingOverlay,
     PasswordInput,
     TextInput,
 } from "@mantine/core";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { loginValidation } from "../Services/FormValidation";
 import { useDisclosure } from "@mantine/hooks";
 import ResetPassword from "./ResetPassword";
+import AuthLoadingOverlay from "./AuthLoadingOverlay";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Slices/UserSlice";
 import {
@@ -72,11 +72,10 @@ const Login = () => {
 
     return (
         <div className="w-full max-w-lg mx-auto flex flex-col justify-center relative py-6 px-4 sm:px-6">
-            <LoadingOverlay
+            <AuthLoadingOverlay
                 visible={loading}
-                zIndex={1000}
-                overlayProps={{ radius: "sm", blur: 3, backgroundOpacity: 0.6 }}
-                loaderProps={{ color: "amber", type: "bars" }}
+                title="Verifying Credentials"
+                subtitle="Authenticating with JobTrek cloud servers..."
             />
 
             <div className="flex flex-col gap-6">

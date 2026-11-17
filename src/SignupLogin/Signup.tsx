@@ -2,7 +2,6 @@ import {
     PasswordInput,
     TextInput,
     Checkbox,
-    LoadingOverlay,
 } from "@mantine/core";
 import { IconAt, IconCheck, IconLock, IconUser, IconArrowRight, IconSparkles } from "@tabler/icons-react";
 import { useState } from "react";
@@ -12,6 +11,7 @@ import { notifications } from "@mantine/notifications";
 import { signupValidation } from "../Services/FormValidation";
 import { useInputStyles } from "../Services/ThemeStyles";
 import { useMantineColorScheme } from "@mantine/core";
+import AuthLoadingOverlay from "./AuthLoadingOverlay";
 
 const defaultForm = {
     name: "",
@@ -100,11 +100,10 @@ const Signup = () => {
 
     return (
         <div className="w-full max-w-lg mx-auto flex flex-col justify-center relative py-6 px-4 sm:px-6">
-            <LoadingOverlay
+            <AuthLoadingOverlay
                 visible={loading}
-                zIndex={1000}
-                overlayProps={{ radius: "sm", blur: 3, backgroundOpacity: 0.6 }}
-                loaderProps={{ color: "amber", type: "bars" }}
+                title="Creating Account"
+                subtitle="Setting up your candidate profile in the cloud..."
             />
 
             <div className="flex flex-col gap-5">
