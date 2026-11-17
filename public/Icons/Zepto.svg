@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+    <rect width="100" height="100" rx="24" fill="#5300A5"/>
+    <text x="50" y="63" font-family="'Outfit', sans-serif" font-weight="900" font-size="36" fill="#FF4D80" text-anchor="middle">zepto</text>
+</svg>

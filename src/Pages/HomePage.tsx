@@ -7,15 +7,13 @@ import Working from "../Landing Page/Working";
 
 const HomePage = () => {
     return(
-        <div className="min-h-[100vh] bg-mine-shaft-950 font-['poppins']">
-            
+        <div className="min-h-screen bg-slate-50 dark:bg-mine-shaft-950 text-slate-900 dark:text-mine-shaft-100 font-sans transition-colors">
             <DreamJob/>
             <Companies/>
             <JobCategory/>
             <Working/>
             <Testimonials/>
             <Subscribe/>
-            
         </div>
     )
 };

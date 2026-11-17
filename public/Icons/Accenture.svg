@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+    <rect width="100" height="100" rx="24" fill="#000000"/>
+    <text x="45" y="58" font-family="'Outfit', sans-serif" font-weight="900" font-size="36" fill="#A100FF" text-anchor="middle">&gt;</text><text x="65" y="58" font-family="'Outfit', sans-serif" font-weight="700" font-size="24" fill="#FFFFFF" text-anchor="middle">ac</text>
+</svg>

@@ -3,40 +3,82 @@ import { work } from "../Data/Data";
 
 const Working = () => {
     return (
-        <div className="mt-20 pb-5">
-            <div className="text-4xl md-mx:text-3xl sm-mx:text-2xl xs-ms:text-xl font-semibold mb-3 text-mine-shaft-100 text-center">
-                How it <span className="text-bright-sun-400">Works</span>
-            </div>
-            <div className="text-lg mb-10 sm-mx:text-base xs-mx:text-sm mx-auto text-mine-shaft-300 text-center w-1/2 sm-mx:11/12">
-                Navigate the hiring process seamlessly and secure your ideal career opportunity
-            </div>
-          
-            <div className="flex px-16 bs-mx:px-10 md-mx:px-5 gap-1 md-mx:flex-col justify-between items-center ">
-                <div className="relative">
-                    <img className="w-[30rem]" src="/Working/Girl.png" alt="Girl" />
-                    <div className="w-36 xs-mx:w-28 flex flex-col items-center gap-1 border border-bright-sun-400 rounded-xl py-3 xp-1 backdrop-blur-md top-[15%] absolute right-0">
-                        <Avatar className="!h-12 !w-12 xs-mx:!h-12 xs-mx:!w-12" src="avatar1.png" alt="it's me "/>
-                        <div className="text-sm sm-mx:text-xs font-semibold text-mine-shaft-200 text-center" >Complete your Profile</div>
-                        <div className="text-xs sm-mx:text-xs font-semibold text-mine-shaft-300 text-center" >70% completed</div>
+        <section className="py-20 border-t border-white/[0.05] relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header */}
+                <div className="text-center max-w-2xl mx-auto mb-16">
+                    <span className="text-xs font-bold font-mono uppercase tracking-widest text-amber-400">
+                        STREAMLINED LIFECYCLE
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white mt-2">
+                        How <span className="text-gradient-solar">JobTrek</span> Works
+                    </h2>
+                    <p className="text-sm sm:text-base text-slate-400 mt-3">
+                        A seamless, four-step journey from discovering opportunities to receiving offer letters.
+                    </p>
+                </div>
+
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+                    {/* Visual with Badge */}
+                    <div className="flex-1 w-full max-w-lg lg:max-w-none flex items-center justify-center relative">
+                        <div className="relative w-full max-w-md">
+                            <img 
+                                className="w-full h-auto object-contain drop-shadow-2xl" 
+                                src="/Working/Girl.png" 
+                                alt="Candidate workflow" 
+                                loading="lazy" 
+                                decoding="async" 
+                            />
+                            
+                            {/* Floating Profile Readiness Badge */}
+                            <div className="absolute right-0 top-1/4 p-3.5 rounded-2xl bg-slate-900/90 backdrop-blur-xl border border-amber-500/25 shadow-glow-sm flex items-center gap-3">
+                                <Avatar 
+                                    className="ring-2 ring-amber-400/40" 
+                                    src="/avatar1.png" 
+                                    size={42} 
+                                    radius="xl"
+                                    alt="Profile"
+                                />
+                                <div>
+                                    <p className="text-xs font-bold text-white">Profile Readiness</p>
+                                    <div className="flex items-center gap-2 mt-1">
+                                        <div className="w-20 h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                                            <div className="w-[85%] h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" />
+                                        </div>
+                                        <span className="text-[10px] font-mono text-amber-300 font-bold">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Step Cards */}
+                    <div className="flex-1 flex flex-col gap-4 w-full">
+                        {work.map((item, index) => (
+                            <div 
+                                key={index} 
+                                className="group p-5 rounded-2xl bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-900/80 border border-slate-200/80 dark:border-white/[0.06] hover:border-amber-500/40 dark:hover:border-amber-500/30 shadow-xs hover:shadow-md transition-all duration-300 flex items-start gap-4"
+                            >
+                                <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 dark:text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 flex items-center justify-center font-mono font-bold text-base shrink-0 transition-colors">
+                                    0{index + 1}
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-base font-bold font-display text-slate-900 dark:text-white group-hover:text-amber-500 transition-colors">
+                                            {item.name}
+                                        </h3>
+                                    </div>
+                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <div className="flex flex-col gap-10">
-                    {
-                        work.map((item,index)=>
-                        <div key={index} className="flex items-center gap-4">
-                        <div className="p-2.5 bg-bright-sun-300 rounded-full">
-                            <img className="h-12 w-12 md-mx:w-9 md-mx:h-9 md-mx:w-9 sm-mx:w-7  sm-mx:h-7 " src={`/Working/${item.name}.png`} alt={item.name} />
-                        </div>
-                        <div>
-                            <div className="text-mine-shaft-200 text-xl md-mx:text-lg sm-mx:text-base  font-semibold">{item.name}</div>
-                            <div className="text-mine-shaft-300 md-mx:text-lg sm-mx:text-base">{item.desc}</div>
-                        </div>  
-                    </div>)
-                    }
-                </div>
             </div>
-        </div>
+        </section>
     );
-}
+};
 
 export default Working;

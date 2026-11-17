@@ -1,43 +1,57 @@
-import { ActionIcon } from "@mantine/core";
-import { IconDeviceFloppy, IconPencil, IconPlus, IconX } from "@tabler/icons-react";
+import { useState } from "react";
 import CertiInput from "./CertiInput";
 import CertifyCard from "./CertifyCard";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useMediaQuery } from "@mantine/hooks";
+import { IconPlus, IconPencil, IconX } from "@tabler/icons-react";
 
 const Certificate = () => {
-    const profile = useSelector((state:any)=>state.profile);
-    const [edit,setEdit]=useState(false);
-    const matches = useMediaQuery('(max-width: 475px)')
+    const profile = useSelector((state: any) => state.profile);
+    const [edit, setEdit] = useState(false);
     const [addCerti, setAddCerti] = useState(false);
 
-    const handleClick=()=>{
-        setEdit(!edit);
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+                <h3 className="text-base sm:text-lg font-bold text-white font-display">
+                    Certifications & Licenses
+                </h3>
+                <div className="flex items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={() => setAddCerti(true)}
+                        className="p-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition-colors"
+                        title="Add Certification"
+                    >
+                        <IconPlus size={16} />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setEdit(!edit)}
+                        className={`p-1.5 rounded-xl transition-colors border ${
+                            edit 
+                                ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/30"
+                                : "bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-amber-400 border-white/10"
+                        }`}
+                        title={edit ? "Done" : "Manage Certifications"}
+                    >
+                        {edit ? <IconX size={16} /> : <IconPencil size={16} />}
+                    </button>
+                </div>
+            </div>
 
-    }
+            <div className="flex flex-col gap-4">
+                {profile?.certifications && profile.certifications.length > 0 ? (
+                    profile.certifications.map((certi: any, index: number) => (
+                        <CertifyCard key={index} index={index} edit={edit} {...certi} />
+                    ))
+                ) : (
+                    <p className="text-sm text-slate-500">No certifications added yet.</p>
+                )}
 
-    return <div className="px-3">
-        <div className="text-2xl font-semibold mb-5 flex justify-between">Certifications
-            <div className="flex gap-2">
-                <ActionIcon onClick={() => setAddCerti(true)} size="lg" color="brightSun.4" variant="subtle" >
-                    <IconPlus className="h-4/5 w-4/5" />
-                </ActionIcon>
-
-
-                <ActionIcon onClick={handleClick} size={matches?"md":"lg"} color={edit ? "red.8" : "brightSun.4"} variant="subtle" >
-                    {edit ? <IconX  className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
-                </ActionIcon></div></div>
-        <div className="flex flex-col gap-8">
-            {
-                profile?.certifications?.map((certi: any, index: number) => 
-                <CertifyCard key={index} index={index} edit={edit} {...certi} />)
-            }
-            {
-                addCerti && <CertiInput setEdit={setAddCerti} />
-            }
+                {addCerti && <CertiInput setEdit={setAddCerti} />}
+            </div>
         </div>
-    </div>
-}
+    );
+};
 
 export default Certificate;

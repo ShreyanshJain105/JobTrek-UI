@@ -1,29 +1,401 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@layer base{
-  ul,ol{
+
+@layer base {
+  ul, ol {
     list-style: revert;
     font-size: medium;
   }
-  p{
+  p {
     font-size: medium;
   }
-  li{
+  li {
     margin-left: 1em;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #090d16;
+    color: #f1f5f9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Utility Design Classes */
+.glass-panel {
+  background: rgba(18, 23, 36, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+.glass-panel-elevated {
+  background: rgba(22, 29, 45, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, #fef3c7 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-solar {
+  background: linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover-glow {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-hover-glow:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(245, 158, 11, 0.2);
+}
+
+/* Smooth Focus Rings */
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+}
+
+/* ==========================================================================
+   Light Mode Theme Adaptation
+   ========================================================================== */
+html.light body,
+[data-mantine-color-scheme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html.light .bg-mine-shaft-950,
+[data-mantine-color-scheme="light"] .bg-mine-shaft-950,
+html.light .bg-slate-950,
+[data-mantine-color-scheme="light"] .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+html.light header,
+[data-mantine-color-scheme="light"] header {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  border-bottom-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light footer,
+[data-mantine-color-scheme="light"] footer {
+  background-color: #f1f5f9 !important;
+  border-top-color: rgba(15, 23, 42, 0.08) !important;
+  color: #475569 !important;
+}
+
+html.light .glass-panel,
+[data-mantine-color-scheme="light"] .glass-panel {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(15, 23, 42, 0.09) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+html.light .glass-panel-elevated,
+[data-mantine-color-scheme="light"] .glass-panel-elevated {
+  background: #ffffff !important;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+}
+
+html.light .text-white,
+[data-mantine-color-scheme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-100,
+[data-mantine-color-scheme="light"] .text-slate-100,
+html.light .text-slate-200,
+[data-mantine-color-scheme="light"] .text-slate-200 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-300,
+[data-mantine-color-scheme="light"] .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400,
+[data-mantine-color-scheme="light"] .text-slate-400 {
+  color: #64748b !important;
+}
+
+html.light .bg-slate-900,
+[data-mantine-color-scheme="light"] .bg-slate-900 {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/90,
+[data-mantine-color-scheme="light"] .bg-slate-900\/60,
+[data-mantine-color-scheme="light"] .bg-slate-900\/70,
+[data-mantine-color-scheme="light"] .bg-slate-900\/80,
+[data-mantine-color-scheme="light"] .bg-slate-900\/90 {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+}
+
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/\[0\.07\],
+html.light .border-white\/\[0\.06\],
+[data-mantine-color-scheme="light"] .border-white\/10,
+[data-mantine-color-scheme="light"] .border-white\/5,
+[data-mantine-color-scheme="light"] .border-white\/\[0\.08\],
+[data-mantine-color-scheme="light"] .border-white\/\[0\.07\],
+[data-mantine-color-scheme="light"] .border-white\/\[0\.06\] {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .mantine-Modal-content,
+[data-mantine-color-scheme="light"] .mantine-Modal-content {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .mantine-Drawer-content,
+[data-mantine-color-scheme="light"] .mantine-Drawer-content {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .mantine-Drawer-header,
+[data-mantine-color-scheme="light"] .mantine-Drawer-header {
+  background-color: #ffffff !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+html.light .mantine-Menu-dropdown,
+[data-mantine-color-scheme="light"] .mantine-Menu-dropdown {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Input padding when left/right sections are present to prevent placeholder clipping */
+.mantine-Input-wrapper:has(.mantine-Input-section[data-position="left"]) > .mantine-Input-input,
+.mantine-TextInput-root:has(.mantine-TextInput-section[data-position="left"]) input,
+[data-with-left-section].mantine-TextInput-input,
+[data-with-left-section].mantine-Input-input {
+  padding-left: 48px !important;
+}
+
+.mantine-Input-wrapper:has(.mantine-Input-section[data-position="right"]) > .mantine-Input-input,
+[data-with-right-section].mantine-TextInput-input,
+[data-with-right-section].mantine-Input-input {
+  padding-right: 44px !important;
+}
+
+/* PasswordInput structural padding: outer container zero horizontal padding, innerInput holds the actual padding */
+.mantine-PasswordInput-input {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.mantine-PasswordInput-root:has(.mantine-PasswordInput-section[data-position="left"]) .mantine-PasswordInput-innerInput,
+.mantine-PasswordInput-input[data-with-left-section] .mantine-PasswordInput-innerInput,
+input.mantine-PasswordInput-innerInput {
+  padding-left: 48px !important;
+  padding-right: 44px !important;
+  width: 100% !important;
+}
+
+/* Solar gradient in light mode */
+html.light .text-gradient-solar,
+[data-mantine-color-scheme="light"] .text-gradient-solar {
+  background: linear-gradient(135deg, #b45309 0%, #d97706 60%, #f59e0b 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light .text-gradient-amber,
+[data-mantine-color-scheme="light"] .text-gradient-amber {
+  background: linear-gradient(135deg, #92400e 0%, #d97706 60%, #b45309 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Light mode overrides for Mantine inputs, textareas, comboboxes */
+html.light .mantine-TextInput-input,
+html.light .mantine-PasswordInput-input,
+html.light .mantine-NumberInput-input,
+html.light .mantine-Textarea-input,
+html.light .mantine-TagsInput-input,
+html.light .mantine-PillsInput-input,
+html.light .mantine-Input-input,
+[data-mantine-color-scheme="light"] .mantine-TextInput-input,
+[data-mantine-color-scheme="light"] .mantine-PasswordInput-input,
+[data-mantine-color-scheme="light"] .mantine-NumberInput-input,
+[data-mantine-color-scheme="light"] .mantine-Textarea-input,
+[data-mantine-color-scheme="light"] .mantine-TagsInput-input,
+[data-mantine-color-scheme="light"] .mantine-PillsInput-input,
+[data-mantine-color-scheme="light"] .mantine-Input-input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light .mantine-TextInput-input::placeholder,
+html.light .mantine-PasswordInput-input::placeholder,
+html.light .mantine-NumberInput-input::placeholder,
+html.light .mantine-Textarea-input::placeholder,
+html.light .mantine-Input-input::placeholder,
+[data-mantine-color-scheme="light"] .mantine-TextInput-input::placeholder,
+[data-mantine-color-scheme="light"] .mantine-PasswordInput-input::placeholder,
+[data-mantine-color-scheme="light"] .mantine-NumberInput-input::placeholder,
+[data-mantine-color-scheme="light"] .mantine-Textarea-input::placeholder,
+[data-mantine-color-scheme="light"] .mantine-Input-input::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+html.light .mantine-InputWrapper-label,
+[data-mantine-color-scheme="light"] .mantine-InputWrapper-label {
+  color: #334155 !important;
+}
+
+html.light .mantine-Combobox-dropdown,
+[data-mantine-color-scheme="light"] .mantine-Combobox-dropdown {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+
+html.light .mantine-Combobox-option,
+[data-mantine-color-scheme="light"] .mantine-Combobox-option {
+  color: #334155 !important;
+}
+
+html.light .mantine-Combobox-option:hover,
+[data-mantine-color-scheme="light"] .mantine-Combobox-option:hover {
+  background-color: rgba(245, 158, 11, 0.08) !important;
+  color: #f59e0b !important;
+}
+
+html.light .mantine-Menu-item,
+[data-mantine-color-scheme="light"] .mantine-Menu-item {
+  color: #334155 !important;
+}
+
+html.light .mantine-Menu-item:hover,
+[data-mantine-color-scheme="light"] .mantine-Menu-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Light mode range slider */
+html.light .mantine-RangeSlider-track,
+[data-mantine-color-scheme="light"] .mantine-RangeSlider-track {
+  background-color: #e2e8f0 !important;
+}
+
+html.light .mantine-RangeSlider-thumb,
+[data-mantine-color-scheme="light"] .mantine-RangeSlider-thumb {
+  background-color: #ffffff !important;
+  border-color: #f59e0b !important;
+}
+
+/* Light mode rich text editor */
+html.light .mantine-RichTextEditor-root,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-root {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+html.light .mantine-RichTextEditor-toolbar,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-toolbar {
+  background-color: #f8fafc !important;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light .mantine-RichTextEditor-content,
+html.light .tiptap,
+html.light .ProseMirror,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-content,
+[data-mantine-color-scheme="light"] .tiptap,
+[data-mantine-color-scheme="light"] .ProseMirror {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html.light .mantine-RichTextEditor-content *,
+html.light .tiptap *,
+html.light .ProseMirror *,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-content *,
+[data-mantine-color-scheme="light"] .tiptap *,
+[data-mantine-color-scheme="light"] .ProseMirror * {
+  color: #0f172a !important;
+}
+
+html.dark .mantine-RichTextEditor-content *,
+html.dark .tiptap *,
+html.dark .ProseMirror * {
+  color: #f8fafc !important;
+}
+
+html.light .mantine-RichTextEditor-control,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-control {
+  color: #475569 !important;
+}
+
+html.light .mantine-RichTextEditor-control:hover,
+[data-mantine-color-scheme="light"] .mantine-RichTextEditor-control:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Light mode overrides for all input types and wrappers */
+html.light input,
+html.light textarea,
+html.light select,
+html.light [data-input],
+[data-mantine-color-scheme="light"] input,
+[data-mantine-color-scheme="light"] textarea,
+[data-mantine-color-scheme="light"] select,
+[data-mantine-color-scheme="light"] [data-input] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light .mantine-Input-input,
+[data-mantine-color-scheme="light"] .mantine-Input-input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+

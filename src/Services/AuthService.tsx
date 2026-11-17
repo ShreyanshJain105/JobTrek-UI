@@ -1,6 +1,6 @@
 import axios from "axios";
 import { removeUser } from "../Slices/UserSlice";
-const base_url="https://jobtrek-backend.onrender.com/auth/"
+const base_url="http://localhost:8081/auth/"
 
 const loginUser=async (login:any)=>{
     return axios.post(`${base_url}login`,login)

@@ -1,18 +1,11 @@
 import {
-  ActionIcon,
-  Avatar,
-  Button,
-  Divider,
-  FileInput,
-  Overlay,
-  TagsInput,
-  Textarea,
+    Avatar,
+    FileInput,
 } from "@mantine/core";
-import { IconEdit } from "@tabler/icons-react";
+import { IconCamera } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from "../Services/ProfileService";
 import Info from "./Info";
-import { changeProfile, setProfile } from "../Slices/ProfileSlice";
+import { changeProfile } from "../Slices/ProfileSlice";
 import About from "./About";
 import Skills from "./Skills";
 import Experience from "./Experience";
@@ -22,78 +15,93 @@ import { successNotification } from "../Services/NotificationService";
 import { getBase64 } from "../Services/Utilities";
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const profile = useSelector((state: any) => state.profile);
+    const dispatch = useDispatch();
+    const profile = useSelector((state: any) => state.profile);
+    const { hovered, ref } = useHover();
 
-  const { hovered, ref } = useHover();
-  const handleFileChange = async (image: any) => {
-    let picture: any = await getBase64(image);
-    let updateProfile = { ...profile, picture: picture.split(",")[1] };
-    dispatch(changeProfile(updateProfile));
-    successNotification("Success", "Profile Picture updated successfully");
-  };
+    const handleFileChange = async (image: any) => {
+        if (!image) return;
+        let picture: any = await getBase64(image);
+        let updateProfile = { ...profile, picture: picture.split(",")[1] };
+        dispatch(changeProfile(updateProfile));
+        successNotification("Success", "Profile picture updated successfully");
+    };
 
-  return (
-    <div className="w-4/5 lg-mx:w-full mx-auto">
-      <div className="relative px-5 ">
-        <img
-          className="rounded-t-2xl xs-mx:h-32"
-          src="/Profile/banner.jpg"
-          alt=""
-        />
-        <div
-          ref={ref}
-          // className="absolute flex items-center justify-center  md-mx:bottom-10 sm-mx:bottom-16 left-6 !rounded-full -bottom-1/3 "
-           className=" w-48 h-48 -bottom-1/3 absolute left-6 items-center justify-center flex "
-         
-        >
-          <Avatar
-            className="!w-48 !h-48 md-mx:!w-40 md-mx:!h-40 border-mine-shaft-950 border-8 rounded-full sm-mx:!w-36 sm-mx:!h-36
-                    xs-mx:!w-32 xs-mx:!w-32"
-            src={
-              profile.picture
-                ? `data:image/jpeg;base64,${profile.picture}`
-                : "/Avatar.png"
-            }
-            alt=""
-          />
-          {hovered && (
-            <Overlay
-              className="!rounded-full"
-              color="#000"
-              backgroundOpacity={0.75}
-            />
-          )}
-          {hovered && <IconEdit className="absolute z-[300] !w-16 !h-16" />}
+    return (
+        <div className="max-w-5xl mx-auto flex flex-col gap-8 pb-16">
+            {/* Profile Hero Card */}
+            <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+                <div className="h-44 sm:h-56 w-full relative bg-gradient-to-r from-amber-500/20 via-slate-800 to-amber-900/30 overflow-hidden">
+                    <img
+                        className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                        src="/Profile/banner.jpg"
+                        alt="Profile Banner"
+                        onError={(e: any) => {
+                            e.target.style.display = 'none';
+                        }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                </div>
 
-          {hovered && (
-            <FileInput
-              onChange={handleFileChange}
-              className="absolute z-[301] [&_*]:!rounded-full 
-                [&_*]:!h-full !h-full w-full  "
-              variant="transparent"
-              accept="image/png,image/jpeg"
-            />
-          )}
+                <div className="px-6 sm:px-10 pb-8 relative">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 -mt-16 sm:-mt-20 mb-6">
+                        <div className="relative" ref={ref}>
+                            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl p-1 bg-gradient-to-tr from-amber-400 to-amber-600 shadow-2xl relative group cursor-pointer overflow-hidden">
+                                <Avatar
+                                    size="100%"
+                                    radius="lg"
+                                    className="w-full h-full object-cover rounded-[22px] bg-slate-900"
+                                    src={
+                                        profile.picture
+                                            ? `data:image/jpeg;base64,${profile.picture}`
+                                            : "/Avatar.png"
+                                    }
+                                    alt="Profile"
+                                />
+
+                                {hovered && (
+                                    <div className="absolute inset-0 rounded-[22px] bg-slate-950/75 flex flex-col items-center justify-center text-amber-400 gap-1 backdrop-blur-xs transition-opacity z-10">
+                                        <IconCamera size={24} />
+                                        <span className="text-[10px] font-bold uppercase tracking-wider">Change</span>
+                                    </div>
+                                )}
+
+                                <FileInput
+                                    onChange={handleFileChange}
+                                    className="absolute inset-0 opacity-0 cursor-pointer z-20 w-full h-full"
+                                    accept="image/png,image/jpeg"
+                                    title="Click to update profile photo"
+                                />
+                            </div>
+                            <span className="absolute bottom-2 right-2 w-4 h-4 rounded-full bg-emerald-500 border-2 border-slate-950 shadow-sm" />
+                        </div>
+                    </div>
+
+                    <Info />
+                </div>
+            </div>
+
+            {/* About Card */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 backdrop-blur-xl shadow-xl">
+                <About />
+            </div>
+
+            {/* Skills Card */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 backdrop-blur-xl shadow-xl">
+                <Skills />
+            </div>
+
+            {/* Experience Card */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 backdrop-blur-xl shadow-xl">
+                <Experience />
+            </div>
+
+            {/* Certifications Card */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 backdrop-blur-xl shadow-xl">
+                <Certificate />
+            </div>
         </div>
-      </div>
-      <div className="px-3 mt-20 ">
-        <Info />
-        <Divider mx="xs" my="xl" />
-
-        <About />
-      </div>
-      <Divider mx="xs" my="xl" />
-      <Skills />
-
-      <Divider mx="xs" my="xl" />
-
-      <Experience />
-
-      <Divider mx="xs" my="xl" />
-      <Certificate />
-    </div>
-  );
+    );
 };
 
 export default Profile;

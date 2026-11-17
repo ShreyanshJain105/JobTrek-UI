@@ -1,15 +1,11 @@
-import { Button, Divider } from "@mantine/core";
-import Profile from "../TalentProfile/Profile";
-import Recommendtalent from "../TalentProfile/Recommendtalent";
 import PostJob from "../PostJob/PostJob";
 
-
-const PostJobPage=()=>{
-    return(
-        <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
-            <PostJob/>
+const PostJobPage = () => {
+    return (
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans pt-8 px-4 sm:px-6 lg:px-8 transition-colors">
+            <PostJob />
         </div>
-    )
-}
+    );
+};
 
 export default PostJobPage;

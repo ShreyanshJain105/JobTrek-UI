@@ -27,4 +27,39 @@ const changePass= async (email:string,password:string)=>{
     .then(result=>result.data)
     .catch(error=>{throw error;});
 }
-export{registerUser,loginUser,sendOtp,verifyOtp,changePass};
+
+const getAllUsers = async () => {
+    return axiosInstance.get(`/users/getAll`)
+        .then(result => result.data)
+        .catch(error => { throw error; });
+};
+
+const adminCreateUser = async (user: any) => {
+    return axiosInstance.post(`/users/admin/create`, user)
+        .then(result => result.data)
+        .catch(error => { throw error; });
+};
+
+const adminUpdateUser = async (user: any) => {
+    return axiosInstance.put(`/users/admin/update`, user)
+        .then(result => result.data)
+        .catch(error => { throw error; });
+};
+
+const adminDeleteUser = async (id: number | string) => {
+    return axiosInstance.delete(`/users/admin/delete/${id}`)
+        .then(result => result.data)
+        .catch(error => { throw error; });
+};
+
+export {
+    registerUser,
+    loginUser,
+    sendOtp,
+    verifyOtp,
+    changePass,
+    getAllUsers,
+    adminCreateUser,
+    adminUpdateUser,
+    adminDeleteUser
+};

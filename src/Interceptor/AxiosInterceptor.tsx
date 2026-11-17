@@ -1,9 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import { error } from "console";
 
 const axiosInstance = axios.create({
-  // baseURL: "http://localhost:8080",
-  baseURL: "https://jobtrek-backend.onrender.com",
+  baseURL: "http://localhost:8081",
 });
 
 axiosInstance.interceptors.request.use(
@@ -19,18 +17,25 @@ axiosInstance.interceptors.request.use(
   }
 );
 
+let interceptorId: number | null = null;
 
-export const setupResponseInterceptor=(navigate:any)=>{
-  axiosInstance.interceptors.response.use(
-    (response)=>{
+export const setupResponseInterceptor = (navigate: any) => {
+  if (interceptorId !== null) {
+    axiosInstance.interceptors.response.eject(interceptorId);
+  }
+  interceptorId = axiosInstance.interceptors.response.use(
+    (response) => {
       return response;
     },
-    (error)=>{
-      if(error.response?.status === 401){
-        navigate('/login');
+    (error) => {
+      if (error.response?.status === 401) {
+        if (window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
+          navigate("/login");
+        }
       }
       return Promise.reject(error);
     }
-  )
-}
+  );
+};
+
 export default axiosInstance;

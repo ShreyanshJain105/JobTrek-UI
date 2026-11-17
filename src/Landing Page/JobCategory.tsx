@@ -1,76 +1,81 @@
 import { Carousel } from "@mantine/carousel";
 import { jobcategory } from "../Data/Data";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 const JobCategory = () => {
-    return (
-        <div className="mt-20 pb-5">
-            <div className="text-4xl font-semibold md-mx:text-3xl sm-mx:text-2xl xs-ms:text-xl mb-3 text-mine-shaft-100 text-center">
-                Browse <span className="text-bright-sun-400">Jobs</span> Category
-            </div>
-            <div className="text-lg sm-mx:text-base xs-mx:text-sm mb-10 mx-auto text-mine-shaft-300 text-center w-1/2 bsm-mx:w-11/12">
-                Explore diverse job opportunities tailored to your skills. Start your career journey today
-            </div>
-           <Carousel 
-                className="focus-visible:[&_button]:!outline-none
-                [&_button]:!bg-bright-sun-400 [&_button]:!border-none [&_button]:hover:opacity-75 [&_button]:opacity-0 hover:[&_button]:opacity-100"
-                slideSize="22%" 
-                slideGap="md" 
-                emblaOptions={{
-                loop: true,
-                }}
-                nextControlIcon={<IconArrowRight className="h-8 w-8"  />}
-                previousControlIcon={<IconArrowLeft className="h-8 w-8" />}
-            >
-                {/* {jobcategory.map((category, index) => (
-                    <Carousel.Slide >
-                        <div className="flex flex-col items-center w-64 gap-2 border border-bright-sun-400
-                       p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] my-5 transition duration-300 ease-in-out00 !shadow-bright-sun-300">
-                            <div className="p-2 bg-bright-sun-300 rounded-full">
-                                <img 
-                                    className="h-8 w-8" 
-                                    src={`/Category/${category.name}.png`}
-                                    alt={category.name}
-                                />
-                            </div>
-                            <div className="text-mine-shaft-100 text-xl font-semibold">
-                                {category.name}
-                            </div>
-                            <div className="text-sm text-center text-mine-shaft-300">
-                                {category.description}
-                            </div>
-                            <div className="text-bright-sun-300 text-lg">
-                                {category.jobCount}
-                            </div>
-                        </div>
-                    </Carousel.Slide>
-                ))} */}
-                {jobcategory.map((category, index) => (
-    <Carousel.Slide key={category.name || index}>   {/* ✅ Added key here */}
-        <div className="flex flex-col items-center w-64 sm-mx:w-56 xs-mx:w-48 gap-2 border border-bright-sun-400
-       p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_black] my-5 transition duration-300 ease-in-out00 !shadow-bright-sun-300">
-            <div className="p-2 bg-bright-sun-300 rounded-full">
-                <img 
-                    className="h-8 w-8 sm-mx:h-6 sm-mx:w-6 xs-mx:h-4 xs-mx:w-4" 
-                    src={`/Category/${category.name}.png`}
-                    alt={category.name}
-                />
-            </div>
-            <div className="text-mine-shaft-100 text-xl sm-mx:text-lg xs-mx:text-base font-semibold">
-                {category.name}
-            </div>
-            <div className="text-sm xs-mx:text-xs text-center text-mine-shaft-300">
-                {category.description}
-            </div>
-            <div className="text-bright-sun-300 text-lg sm-mx:text-base xs-mx:text-sm">
-                {category.jobCount}
-            </div>
-        </div>
-    </Carousel.Slide>
-))}
+    const navigate = useNavigate();
 
-            </Carousel>
-        </div> 
+    return (
+        <section className="py-20 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Section Header */}
+                <div className="text-center max-w-2xl mx-auto mb-12">
+                    <span className="text-xs font-bold font-mono uppercase tracking-widest text-amber-600 dark:text-amber-400">
+                        CURATED PATHWAYS
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 dark:text-white mt-2">
+                        Explore by <span className="text-gradient-solar">Specialization</span>
+                    </h2>
+                    <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3">
+                        Discover vetted openings across high-impact engineering, product, and leadership domains.
+                    </p>
+                </div>
+
+                <Carousel 
+                    className="focus-visible:[&_button]:!outline-none
+                    [&_button]:!bg-white dark:[&_button]:!bg-slate-800 [&_button]:!text-slate-700 dark:[&_button]:!text-amber-400 [&_button]:!border [&_button]:!border-slate-200 dark:[&_button]:!border-white/10 [&_button]:hover:!bg-amber-500 [&_button]:hover:!text-slate-950 [&_button]:transition-all [&_button]:shadow-sm"
+                    slideSize={{ base: '100%', sm: '50%', md: '33.333333%', lg: '25%' }}
+                    slideGap="lg" 
+                    emblaOptions={{
+                        loop: true,
+                        align: 'start',
+                    }}
+                    nextControlIcon={<IconArrowRight size={20} stroke={2.5} />}
+                    previousControlIcon={<IconArrowLeft size={20} stroke={2.5} />}
+                >
+                    {jobcategory.map((category, index) => (
+                        <Carousel.Slide key={category.name || index}>
+                            <div 
+                                onClick={() => navigate("/find-jobs")}
+                                className="group relative p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-white/[0.08] hover:border-amber-500/40 shadow-xs hover:shadow-lg backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between h-[230px]"
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-slate-950 flex items-center justify-center transition-all duration-200">
+                                        <img 
+                                            className="h-6 w-6 object-contain group-hover:brightness-0 transition-all" 
+                                            src={`/Category/${category.name}.png`}
+                                            alt={category.name}
+                                        />
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/[0.03] text-slate-400 dark:text-slate-500 group-hover:text-amber-500 group-hover:bg-amber-500/10 flex items-center justify-center transition-colors">
+                                        <IconArrowUpRight size={16} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white group-hover:text-amber-500 transition-colors">
+                                        {category.name}
+                                    </h3>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mt-1">
+                                        {category.description}
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center justify-between pt-3 border-t border-slate-200/80 dark:border-white/[0.05]">
+                                    <span className="text-xs font-mono font-semibold text-amber-400">
+                                        {category.jobCount}
+                                    </span>
+                                    <span className="text-[11px] text-slate-500 group-hover:text-slate-300 transition-colors">
+                                        View Roles &rarr;
+                                    </span>
+                                </div>
+                            </div>
+                        </Carousel.Slide>
+                    ))}
+                </Carousel>
+            </div>
+        </section>
     );
 };
 
