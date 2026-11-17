@@ -1,6 +1,8 @@
 import axios from "axios";
 import { removeUser } from "../Slices/UserSlice";
-const base_url="http://localhost:8081/auth/"
+
+const baseURL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8081";
+const base_url = `${baseURL}/auth/`;
 
 const loginUser=async (login:any)=>{
     return axios.post(`${base_url}login`,login)
