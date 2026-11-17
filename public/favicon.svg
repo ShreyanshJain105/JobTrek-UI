@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="jobtrekAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="35%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <!-- Squircle container -->
+  <rect x="36" y="36" width="440" height="440" rx="108" fill="url(#jobtrekAmber)" filter="url(#shadow)"/>
+  <rect x="38" y="38" width="436" height="436" rx="106" fill="none" stroke="#FFFFFF" stroke-opacity="0.32" stroke-width="4"/>
+  <!-- Route Emblem (Slate 950) -->
+  <g fill="#090D16" stroke="#090D16" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Start Node Square -->
+    <rect x="92" y="332" width="88" height="88" rx="22" fill="#090D16" stroke="none"/>
+    <!-- End Node Square -->
+    <rect x="332" y="92" width="88" height="88" rx="22" fill="#090D16" stroke="none"/>
+    <!-- Dynamic Connecting Pathway -->
+    <path d="M 180 376 H 264 A 68 68 0 0 0 264 240 H 200 A 68 68 0 0 1 200 104 H 332" 
+          fill="none" 
+          stroke="#090D16" 
+          stroke-width="46" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    <!-- Core Accent Dots -->
+    <circle cx="136" cy="376" r="14" fill="#FCD34D" stroke="none"/>
+    <circle cx="376" cy="136" r="14" fill="#FCD34D" stroke="none"/>
+  </g>
+</svg>

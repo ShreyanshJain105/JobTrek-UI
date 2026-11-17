@@ -1,11 +1,21 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "JobTrek",
+  "name": "JobTrek — Modern Career & Talent Platform",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     },
     {
       "src": "logo192.png",
@@ -20,6 +30,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#f59e0b",
+  "background_color": "#090d16"
 }
